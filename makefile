@@ -78,8 +78,8 @@ ifeq ($(MCU), atxmega16d4)
    FLASH_PAGE_SIZE = 256
 endif
 
-TARGET = Xmega_Bootloader.elf
-TARGET_BASE = Xmega_Bootloader
+TARGET = $(PROJECT).elf
+TARGET_BASE = $(PROJECT)
 
 CC = avr-gcc
 
@@ -99,7 +99,7 @@ ASMFLAGS += -x assembler-with-cpp -Wa,-gdwarf2
 
 ## Linker flags
 LDFLAGS = $(COMMON)
-LDFLAGS += -Wl,-Map=Xmega_Bootloader.map
+LDFLAGS += -Wl,-Map=$(PROJECT).map
 LDFLAGS += -Wl,-section-start=.text=$(BOOT_SECTION_START_IN_BYTES)
 
 ## Intel Hex file production flags
@@ -109,17 +109,17 @@ HEX_EEPROM_FLAGS += --set-section-flags=.eeprom="alloc,load"
 HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 ## Objects that must be built in order to link
-OBJECTS = eeprom_driver.o Xmega_Bootloader.o serial.o sp_driver.o
+OBJECTS = eeprom_driver.o $(PROJECT).o serial.o sp_driver.o
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS =
 
 ## Build
-all: sizebefore $(TARGET) Xmega_Bootloader.hex Xmega_Bootloader.eep sizeafter  Xmega_Bootloader.lss## Compile
+all: sizebefore $(TARGET) $(PROJECT).hex $(PROJECT).eep sizeafter  $(PROJECT).lss## Compile
 eeprom_driver.o: eeprom_driver.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
-Xmega_Bootloader.o: Xmega_Bootloader.c
+$(PROJECT).o: $(PROJECT).c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 serial.o: serial.c
@@ -144,10 +144,10 @@ $(TARGET): $(OBJECTS)
 ## Clean target
 .PHONY: clean
 clean:
-	-rm -rf $(OBJECTS) Xmega_Bootloader.elf dep Xmega_Bootloader.hex Xmega_Bootloader.eep Xmega_Bootloader.lss Xmega_Bootloader.map
+	-rm -rf $(OBJECTS) $(PROJECT).elf $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss $(PROJECT).map
 
 ## Other dependencies
--include $(shell mkdir dep 2>/dev/null) $(wildcard dep/*)
+
 
 # Display size of file.
 FORMAT = ihex
