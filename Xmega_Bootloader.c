@@ -78,8 +78,8 @@ int main(void)
 		EEPROM_DisableMapping();
 		
 		Port(LED_PIN).DIRSET = (1 << Pin(LED_PIN));
-	#if (LED_ON == 0)
-		Port(LED_PIN).OUTSET = (1 << Pin(LED_PIN)); //Turn off the LED
+	#if (LED_ON == 1)
+		Port(LED_PIN).OUTSET = (1 << Pin(LED_PIN)); //Turn on the LED
 	#endif
 		
 		initbootuart(); // Initialize UART.
@@ -283,8 +283,9 @@ int main(void)
                 SP_WaitForSPM();
                // SP_LockSPM();
                 sendchar('\r');
+				_delay_ms(2);
                 EIND = 0x00;
-                funcptr(); // Jump to Reset vector 0x0000 in Application Section.
+				CCP_RST();
             }
                  // Get programmer type.        
             else if (val=='p')
@@ -345,6 +346,7 @@ int main(void)
             else if(val=='V')
             {
                 sendchar('1');
+				sendchar('0');
             }        
             // Return signature bytes.
             else if(val=='s')

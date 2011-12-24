@@ -109,7 +109,7 @@ HEX_EEPROM_FLAGS += --set-section-flags=.eeprom="alloc,load"
 HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 ## Objects that must be built in order to link
-OBJECTS = eeprom_driver.o $(PROJECT).o serial.o sp_driver.o
+OBJECTS = eeprom_driver.o $(PROJECT).o serial.o sp_driver.o CCP_Write.o
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS =
@@ -126,6 +126,9 @@ serial.o: serial.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 sp_driver.o: sp_driver.s
+	$(CC) $(INCLUDES) $(ASMFLAGS) -c  $<
+
+CCP_Write.o: CCP_Write.s
 	$(CC) $(INCLUDES) $(ASMFLAGS) -c  $<
 
 ##Link

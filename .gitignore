@@ -7,3 +7,4 @@ Xmega_Bootloader.o
 eeprom_driver.o
 serial.o
 sp_driver.o
+CCP_Write.o

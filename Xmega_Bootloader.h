@@ -7,4 +7,6 @@
 #include "eeprom_driver.h"
 #include "sp_driver.h"
 
+extern void CCP_RST( void );
+
 #endif
