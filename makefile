@@ -29,12 +29,13 @@ PROJECT = Xmega_Bootloader
 # BAUD_RATE = 57600
   BAUD_RATE = 115200
   
-# Specify a pin to check for entry into the bootloader. If the pin is held low
-# on boot-up, then the MCU will jump to the boot section. Otherwise, operation
-# will start from the application section. The notation is PORT,PIN.
-# For example, if you wanted to use PIN 3 on PORTC, you would set the option
-# as C,3.
-  BOOTLOADER_PIN = B,2
+# Specify a pin to check for entry into the bootloader. The notation is
+# PORT,PIN. For example, if you wanted to use PIN 3 on PORTC, you would set
+# the option as C,3. Then specifiy the logic value required to enable the
+# bootloader code (1 = enable the bootloader if the pin is VCC, 0 = enable 
+# the bootloader if the pin is GND).
+  BOOTLOADER_PIN    = B,2
+  BOOTLOADER_PIN_ON = 1
   
 # Specify a pin to control an LED. The notation is PORT,PIN. For example, if
 # you wanted to use PIN 6 on PORTA, you would set the option as A,6. Then
@@ -89,7 +90,7 @@ COMMON = -mmcu=$(MCU)
 
 ## Compile options common for all C compilation units.
 CFLAGS = $(COMMON)
-CFLAGS += -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DFLASH_PAGE_SIZE=$(FLASH_PAGE_SIZE) -DMCU=$(MCU) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON)
+CFLAGS += -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DFLASH_PAGE_SIZE=$(FLASH_PAGE_SIZE) -DMCU=$(MCU) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON) -DBOOTLOADER_PIN_EN=$(BOOTLOADER_PIN_ON)
 
 ## Assembly specific flags
 ASMFLAGS = $(COMMON)

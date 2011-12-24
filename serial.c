@@ -13,7 +13,7 @@ void initbootuart(void)
 	Port(MY_UART).DIRSET = TX_Pin(MY_UART);
 	Uart(MY_UART).BAUDCTRLA = BRREG_VALUE;
 	Uart(MY_UART).BAUDCTRLB = (SCALE_VALUE << USART_BSCALE_gp) & USART_BSCALE_gm;
-  	Uart(MY_UART).CTRLB = USART_RXEN_bm | USART_TXEN_bm; // enable receive and transmit
+	Uart(MY_UART).CTRLB = USART_RXEN_bm | USART_TXEN_bm; // enable receive and transmit
 }
 
 /*! \brief Transmitting a character UART communcation.
@@ -26,10 +26,17 @@ void initbootuart(void)
  */
 void sendchar(unsigned char c)
 {
-    while (!(Uart(MY_UART).STATUS & USART_DREIF_bm));
+	//Wait until the resource is available.
+	//I changed this function from Atmel's version because
+	//their code forced a wait after the byte was loaded
+	//into the register. If you load the data and leave, you
+	//are likely to wait far less time as the main thread
+	//could be doing other things. Always waiting guarantees
+	//that you clog up the thread, but waiting before trying
+	//has a distinct advantage as the resource may already
+	//be available.
+	while (!(Uart(MY_UART).STATUS & USART_DREIF_bm));
 	Uart(MY_UART).DATA = c; // prepare transmission
-    // wait until byte is sent
-    //Uart(MY_UART).STATUS |= (1 << USART_TXCIF_bp); // delete TXCflag
 }
 
 /*! \brief Receiving a character in UART communcation.
@@ -43,9 +50,8 @@ void sendchar(unsigned char c)
 
 unsigned char recchar(void)
 {
-    unsigned char ret;
+	unsigned char ret;
 	while(!(Uart(MY_UART).STATUS & (1 << USART_RXCIF_bp)));  // wait for data
-    ret = Uart(MY_UART).DATA;
-  	return ret;
+	return Uart(MY_UART).DATA;
 }
 

@@ -57,14 +57,21 @@ void BlockRead(unsigned int size, unsigned char mem, ADDR_T *address);
 
 int main(void)
 {
+	void (*funcptr)( void ) = 0x0000; // Set up function pointer to RESET vector.
+	
 	/* Branch to bootloader or application code? */
-    if( (Port(ENTER_BOOTLOADER_PIN).IN & (1<<Pin(ENTER_BOOTLOADER_PIN))) ) // If ENTER pin is pulled low, enter programming mode.
+#if (BOOTLOADER_PIN_EN == 0)
+	//Active low pin
+	if( !(Port(ENTER_BOOTLOADER_PIN).IN & (1<<Pin(ENTER_BOOTLOADER_PIN))) )
+#else
+	//Active high pin
+	if(  (Port(ENTER_BOOTLOADER_PIN).IN & (1<<Pin(ENTER_BOOTLOADER_PIN))) )
+#endif
 	{
 		ADDR_T address = 0;
 		unsigned int temp_int = 0;
 		unsigned char val = 0;
 		/* Initialization */
-		void (*funcptr)( void ) = 0x0000; // Set up function pointer to RESET vector.
 
 		EEPROM_FlushBuffer();
 		EEPROM_DisableMapping();
@@ -355,6 +362,7 @@ int main(void)
     }
     else
     {
+		for(;;);
         SP_WaitForSPM();
         SP_LockSPM();
         EIND = 0x00;
