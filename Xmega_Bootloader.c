@@ -355,8 +355,6 @@ int main(void)
     }
     else
     {
-		for(;;);
-
         SP_WaitForSPM();
         SP_LockSPM();
         EIND = 0x00;
