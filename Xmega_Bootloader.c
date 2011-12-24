@@ -64,22 +64,28 @@ int main(void)
 #if (BOOTLOADER_PIN_EN == 0)
 	//Active low pin
 	if( !(Port(ENTER_BOOTLOADER_PIN).IN & (1<<Pin(ENTER_BOOTLOADER_PIN))) )
-#else
+#elif (BOOTLOADER_PIN_EN == 1)
 	//Active high pin
 	if(  (Port(ENTER_BOOTLOADER_PIN).IN & (1<<Pin(ENTER_BOOTLOADER_PIN))) )
+#else
+	#error Invalid value for BOOTLOADER_PIN_EN
 #endif
 	{
+		/* Initialization */
 		ADDR_T address = 0;
 		unsigned int temp_int = 0;
 		unsigned char val = 0;
-		/* Initialization */
-
+		
 		EEPROM_FlushBuffer();
 		EEPROM_DisableMapping();
 		
 		Port(LED_PIN).DIRSET = (1 << Pin(LED_PIN));
 	#if (LED_ON == 1)
 		Port(LED_PIN).OUTSET = (1 << Pin(LED_PIN)); //Turn on the LED
+	#elif (LED_ON == 0)
+	
+	#else
+		#error Invalid value for LED_ON
 	#endif
 		
 		initbootuart(); // Initialize UART.
@@ -250,43 +256,41 @@ int main(void)
                 SP_WaitForSPM();        
                 sendchar( SP_ReadLockBits() );
             }
-            // Read low fuse bits.
-            else if(val=='F')
-            {
-                SP_WaitForSPM();
-                sendchar(SP_ReadFuseByte(0));
-            }
-            // Read high fuse bits
-            else if(val=='N')
-            {
-                SP_WaitForSPM();
-                sendchar(SP_ReadFuseByte(1));
-            }
-            // Read extended fuse bits.
-            else if(val=='Q')
-            {
-                SP_WaitForSPM();      
-                sendchar(SP_ReadFuseByte(2));
-            }
+			// Read low fuse bits.
+			else if(val=='F')
+			{
+				SP_WaitForSPM();
+				sendchar(SP_ReadFuseByte(0));
+			}
+			// Read high fuse bits
+			else if(val=='N')
+			{
+				SP_WaitForSPM();
+				sendchar(SP_ReadFuseByte(1));
+			}
+			// Read extended fuse bits.
+			else if(val=='Q')
+			{
+				SP_WaitForSPM();      
+				sendchar(SP_ReadFuseByte(2));
+			}
 #endif /* defined(_GET_LOCK_BITS) */
 #endif /* REMOVE_FUSE_AND_LOCK_BIT_SUPPORT */
 
 #ifndef REMOVE_AVRPROG_SUPPORT        
-            // Enter and leave programming mode.
-            else if((val=='P')||(val=='L'))
-            {
-                sendchar('\r'); // Nothing special to do, just answer OK.
-            }
-            // Exit bootloader.
-            else if(val=='E')
-            {
-                SP_WaitForSPM();
-               // SP_LockSPM();
-                sendchar('\r');
+			// Enter and leave programming mode.
+			else if((val=='P')||(val=='L'))
+			{
+				sendchar('\r'); // Nothing special to do, just answer OK.
+			}
+			// Exit bootloader.
+			else if(val=='E')
+			{
+				SP_WaitForSPM();
+				sendchar('\r');
 				_delay_ms(2);
-                EIND = 0x00;
 				CCP_RST();
-            }
+			}
                  // Get programmer type.        
             else if (val=='p')
             {
