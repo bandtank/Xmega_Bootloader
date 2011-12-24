@@ -9,10 +9,11 @@ PROJECT = Xmega_Bootloader
 # User modification section
 ###############################################################################
 #  Choose one of the following MCUs:
-#    If you have a different MCU, you will have to define the BOOT_SECTION_START_IN_BYTES
-#    and FLASH_PAGE_SIZE_IN_BYTES for -section-start and the number of bytes to 
-#    program at a time respectively. This information can be found in the iox....h
-#    file as BOOT_SECTION_START and PROGMEM_PAGE_SIZE.
+#    If you have a different MCU, you will have to define the
+#    BOOT_SECTION_START_IN_BYTES and FLASH_PAGE_SIZE_IN_BYTES for
+#    -section-start and the number of bytes to program at a time respectively.
+#    This information can be found in the iox....h file as BOOT_SECTION_START
+#    and PROGMEM_PAGE_SIZE.
 # MCU = atxmega128a1
 # MCU = atxmega64a3
 # MCU = atxmega32a4
@@ -28,19 +29,22 @@ PROJECT = Xmega_Bootloader
 # BAUD_RATE = 57600
   BAUD_RATE = 115200
   
-# Specify a pin to check for entry into the bootloader. If the pin is held low on boot-up, 
-# then the MCU will jump to the boot section. Otherwise, operation will start from the 
-# application section. The notation is PORT,PIN. For example, if you wanted to use PIN 3
-# on PORTC, you would set the option as C,3.
+# Specify a pin to check for entry into the bootloader. If the pin is held low
+# on boot-up, then the MCU will jump to the boot section. Otherwise, operation
+# will start from the application section. The notation is PORT,PIN.
+# For example, if you wanted to use PIN 3 on PORTC, you would set the option
+# as C,3.
   BOOTLOADER_PIN = B,2
   
-# Specify a pin to control an LED. The notation is PORT,PIN. For example, if you wanted to use
-# PIN 6 on PORTA, you would set the option as A,6. Then specifiy the logic value required to
-# enable the LED (1 = output VCC to turn on the LED, 0 = output GND to turn on the LED).
+# Specify a pin to control an LED. The notation is PORT,PIN. For example, if
+# you wanted to use PIN 6 on PORTA, you would set the option as A,6. Then
+# specifiy the logic value required to enable the LED (1 = output VCC to turn
+# on the LED, 0 = output GND to turn on the LED).
   LED_PIN = D,2
   LED_ON  = 0
 
-# Specify which UART to use with PORT,NUM notation. For example, UART0 on PORTC would be C,0.
+# Specify which UART to use with PORT,NUM notation. For example, UART1 on
+# PORTD would be D,1.
   UART = C,0
 
 ###############################################################################
