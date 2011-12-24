@@ -35,7 +35,7 @@ void sendchar(unsigned char c)
 	//that you clog up the thread, but waiting before trying
 	//has a distinct advantage as the resource may already
 	//be available.
-	while (!(Uart(MY_UART).STATUS & USART_DREIF_bm));
+	while (!(Uart(MY_UART).STATUS & (1 << USART_DREIF_bp)));
 	Uart(MY_UART).DATA = c; // prepare transmission
 }
 
@@ -50,8 +50,7 @@ void sendchar(unsigned char c)
 
 unsigned char recchar(void)
 {
-	unsigned char ret;
-	while(!(Uart(MY_UART).STATUS & (1 << USART_RXCIF_bp)));  // wait for data
+	while(!(Uart(MY_UART).STATUS & USART_RXCIF_bm));  // wait for data
 	return Uart(MY_UART).DATA;
 }
 

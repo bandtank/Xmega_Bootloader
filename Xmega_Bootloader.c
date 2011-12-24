@@ -58,6 +58,7 @@ void BlockRead(unsigned int size, unsigned char mem, ADDR_T *address);
 int main(void)
 {
 	void (*funcptr)( void ) = 0x0000; // Set up function pointer to RESET vector.
+	Port(ENTER_BOOTLOADER_PIN).Pin_control(ENTER_BOOTLOADER_PIN) = PORT_OPC_PULLUP_gc;
 	
 	/* Branch to bootloader or application code? */
 #if (BOOTLOADER_PIN_EN == 0)
@@ -81,7 +82,6 @@ int main(void)
 		Port(LED_PIN).OUTSET = (1 << Pin(LED_PIN)); //Turn off the LED
 	#endif
 		
-		Port(ENTER_BOOTLOADER_PIN).Pin_control(ENTER_BOOTLOADER_PIN) = PORT_OPC_PULLUP_gc;
 		initbootuart(); // Initialize UART.
 		
 		/* Main loop */
@@ -362,11 +362,10 @@ int main(void)
     }
     else
     {
-		for(;;);
-        SP_WaitForSPM();
-        SP_LockSPM();
-        EIND = 0x00;
-        funcptr(); // Jump to Reset vector 0x0000 in Application Section.
+		SP_WaitForSPM();
+		SP_LockSPM();
+		EIND = 0x00;
+		funcptr(); // Jump to Reset vector 0x0000 in Application Section.
     }
 } // end: main
 
