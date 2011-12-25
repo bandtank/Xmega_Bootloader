@@ -36,6 +36,11 @@ PROJECT = Xmega_Bootloader
 # the bootloader if the pin is GND).
   BOOTLOADER_PIN    = B,2
   BOOTLOADER_PIN_ON = 1
+
+# If you need to implement a delay before checking the booloader pin, enter
+# the value in milliseconds. The default is 250ms, which should be enough for
+# most systems.
+  BOOTUP_DELAY = 250
   
 # Specify a pin to control an LED. The notation is PORT,PIN. For example, if
 # you wanted to use PIN 6 on PORTA, you would set the option as A,6. Then
@@ -90,7 +95,8 @@ COMMON = -mmcu=$(MCU)
 
 ## Compile options common for all C compilation units.
 CFLAGS = $(COMMON)
-CFLAGS += -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DFLASH_PAGE_SIZE=$(FLASH_PAGE_SIZE) -DMCU=$(MCU) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON) -DBOOTLOADER_PIN_EN=$(BOOTLOADER_PIN_ON)
+CFLAGS += -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DFLASH_PAGE_SIZE=$(FLASH_PAGE_SIZE) -DMCU=$(MCU) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON) -DBOOTLOADER_PIN_EN=$(BOOTLOADER_PIN_ON) -DBOOTUP_DELAY=$(BOOTUP_DELAY)
+CFLAGS += -MD -MP -MT $(*F).o
 
 ## Assembly specific flags
 ASMFLAGS = $(COMMON)

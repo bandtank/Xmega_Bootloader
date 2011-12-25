@@ -57,9 +57,12 @@ void BlockRead(unsigned int size, unsigned char mem, ADDR_T *address);
 
 int main(void)
 {
+	//Delay allows the pull up resistor sufficient time to pull high
+	_delay_ms(BOOTUP_DELAY);
+	
 	void (*funcptr)( void ) = 0x0000; // Set up function pointer to RESET vector.
 	Port(ENTER_BOOTLOADER_PIN).Pin_control(ENTER_BOOTLOADER_PIN) = PORT_OPC_PULLUP_gc;
-	
+
 	/* Branch to bootloader or application code? */
 #if (BOOTLOADER_PIN_EN == 0)
 	//Active low pin
