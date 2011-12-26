@@ -57,7 +57,8 @@ void BlockRead(unsigned int size, unsigned char mem, ADDR_T *address);
 
 int main(void)
 {
-	//Delay allows the pull up resistor sufficient time to pull high
+	//Delay allows the pull up resistor sufficient time to pull high.
+	//This delay is configured in the makefile.
 	_delay_ms(BOOTUP_DELAY);
 	
 	void (*funcptr)( void ) = 0x0000; // Set up function pointer to RESET vector.
