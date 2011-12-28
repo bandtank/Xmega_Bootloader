@@ -353,7 +353,7 @@ int main(void)
             else if(val=='V')
             {
                 sendchar('1');
-				sendchar('0');
+				sendchar('1');
             }        
             // Return signature bytes.
             else if(val=='s')
