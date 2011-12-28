@@ -60,9 +60,8 @@ int main(void)
 	void (*funcptr)( void ) = 0x0000; // Set up function pointer to RESET vector.
 	Port(ENTER_BOOTLOADER_PIN).Pin_control(ENTER_BOOTLOADER_PIN) = PORT_OPC_PULLUP_gc;
 	
-	//Delay allows the pull up resistor sufficient time to pull high.
-	//This delay is configured in the makefile.
-	_delay_ms(BOOTUP_DELAY);
+	//This delay allows the pull up resistor sufficient time to pull high.
+	_delay_us(10);
 
 	/* Branch to bootloader or application code? */
 #if (BOOTLOADER_PIN_EN == 0)
