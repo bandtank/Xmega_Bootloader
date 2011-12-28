@@ -40,7 +40,7 @@ PROJECT = Xmega_Bootloader
 # If you need to implement a delay before checking the booloader pin, enter
 # the value in milliseconds. The default is 250ms, which should be enough for
 # most systems.
-  BOOTUP_DELAY = 250
+  BOOTUP_DELAY = 5
   
 # Specify a pin to control an LED. The notation is PORT,PIN. For example, if
 # you wanted to use PIN 6 on PORTA, you would set the option as A,6. Then
