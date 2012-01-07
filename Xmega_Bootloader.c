@@ -60,8 +60,10 @@ int main(void)
 	void (*funcptr)( void ) = 0x0000; // Set up function pointer to RESET vector.
 	Port(ENTER_BOOTLOADER_PIN).Pin_control(ENTER_BOOTLOADER_PIN) = PORT_OPC_PULLUP_gc;
 	
-	//This delay allows the pull up resistor sufficient time to pull high.
-	_delay_us(10);
+	//This delay allows the pull-up resistor sufficient time to pull high.
+	//Realistically it only needs to be ~1uS, so waiting for 5 cycels @ 2MHz
+	//will be a 2.5uS delay.
+	__builtin_avr_delay_cycles(5);
 
 	/* Branch to bootloader or application code? */
 #if (BOOTLOADER_PIN_EN == 0)
@@ -291,7 +293,8 @@ int main(void)
 			{
 				SP_WaitForSPM();
 				sendchar('\r');
-				_delay_ms(2);
+				//Wait for the character to finish sending before resetting
+				while (!(Uart(MY_UART).STATUS & (1 << USART_DREIF_bp)));
 				CCP_RST();
 			}
                  // Get programmer type.        

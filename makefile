@@ -17,8 +17,8 @@ PROJECT = Xmega_Bootloader
 # MCU = atxmega128a1
 # MCU = atxmega64a3
 # MCU = atxmega32a4
-# MCU = atxmega16a4
-  MCU = atxmega16d4
+  MCU = atxmega16a4
+# MCU = atxmega16d4
   
 # Choose a baud rate for the UART.
 #    If you need a baud rate that is not listed in this makefile, you must add
@@ -35,18 +35,18 @@ PROJECT = Xmega_Bootloader
 # bootloader code (1 = enable the bootloader if the pin is VCC, 0 = enable 
 # the bootloader if the pin is GND).
   BOOTLOADER_PIN    = B,2
-  BOOTLOADER_PIN_ON = 1
+  BOOTLOADER_PIN_ON = 0
   
 # Specify a pin to control an LED. The notation is PORT,PIN. For example, if
 # you wanted to use PIN 6 on PORTA, you would set the option as A,6. Then
 # specifiy the logic value required to enable the LED (1 = output VCC to turn
 # on the LED, 0 = output GND to turn on the LED).
-  LED_PIN = D,2
+  LED_PIN = A,1
   LED_ON  = 0
 
 # Specify which UART to use with PORT,NUM notation. For example, UART1 on
 # PORTD would be D,1.
-  UART = C,0
+  UART = E,0
 
 ###############################################################################
 # End user modification section
