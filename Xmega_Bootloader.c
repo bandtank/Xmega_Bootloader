@@ -350,7 +350,7 @@ int main(void)
                 sendchar('g');
                 sendchar('a');
                 sendchar('B');
-				sendchar('l');
+                sendchar('l');
             }
             // Return software version.
             else if(val=='V')
