@@ -99,6 +99,9 @@ int main(void)
         for(;;)
         {
             val = recchar(); // Wait for command character.
+            sendchar(val);
+            while (!(Uart(MY_UART).STATUS & (1 << USART_DREIF_bp)));
+            
             // Check autoincrement status.
             if(val=='a')
             {
@@ -291,10 +294,11 @@ int main(void)
 			// Exit bootloader.
 			else if(val=='E')
 			{
-				SP_WaitForSPM();
-				sendchar('\r');
+            	sendchar('\r');
 				//Wait for the character to finish sending before resetting
 				while (!(Uart(MY_UART).STATUS & (1 << USART_DREIF_bp)));
+                
+				SP_WaitForSPM();
 				CCP_RST();
 			}
                  // Get programmer type.        
