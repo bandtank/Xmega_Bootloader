@@ -100,7 +100,6 @@ int main(void)
         {
             val = recchar(); // Wait for command character.
             sendchar(val);
-            while (!(Uart(MY_UART).STATUS & (1 << USART_DREIF_bp)));
             
             // Check autoincrement status.
             if(val=='a')

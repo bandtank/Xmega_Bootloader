@@ -35,8 +35,8 @@ void sendchar(unsigned char c)
 	//that you clog up the thread, but waiting before trying
 	//has a distinct advantage as the resource may already
 	//be available.
-	while (!(Uart(MY_UART).STATUS & (1 << USART_DREIF_bp)));
 	Uart(MY_UART).DATA = c; // prepare transmission
+	while (!(Uart(MY_UART).STATUS & (1 << USART_DREIF_bp)));
 }
 
 /*! \brief Receiving a character in UART communcation.
