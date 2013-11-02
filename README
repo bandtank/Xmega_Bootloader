@@ -1,7 +1,7 @@
 Welcome to the XmegaBl. This bootloader implements the AVR911 protocol and is purposefully stripped of all the unnecessary bloat in an effort to keep it simple and efficient. 
 
 Bootloader information:
-   1. It works with all Xmegas, but may require you to add support if it isn't already in the makefile.
+   1. It works with all Xmegas, but may require you to add support if it isn't already in the makefile. Note: AVR-GCC has to support the particular Xmega you want to use as well. AVRDUDE 5.10 lacks support for many, many Xmegas, so you may need to acquire a newer version if you're simply using the bundled version that came with Winavr.
    2. It requires AVR-GCC to build.
    3. It uses the AVR911 protocol.
    4. It works with avrdude version 5.10 and Avr-OSP II version .549.
