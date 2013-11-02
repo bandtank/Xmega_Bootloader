@@ -99,7 +99,11 @@ int main(void)
         for(;;)
         {
             val = recchar(); // Wait for command character.
-            sendchar(val);
+            
+            // This may not be the right thing to do. Since there's basically no
+            // documentation for the protocol, however, it's pretty hard to know
+            // for sure. Commented for now...
+            //sendchar(val);
             
             // Check autoincrement status.
             if(val=='a')
