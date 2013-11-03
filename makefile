@@ -15,10 +15,11 @@ PROJECT = Xmega_Bootloader
 #    This information can be found in the iox....h file as BOOT_SECTION_START
 #    and PROGMEM_PAGE_SIZE.
 # MCU = atxmega128a1
-# MCU = atxmega64a3
+MCU = atxmega64a3
+# MCU = atxmega64a3u
 # MCU = atxmega32a4
 # MCU = atxmega16a4
-  MCU = atxmega16d4
+# MCU = atxmega16d4
   
 # Choose a baud rate for the UART.
 #    If you need a baud rate that is not listed in this makefile, you must add
@@ -63,6 +64,11 @@ ifeq ($(MCU), atxmega64a3)
    FLASH_PAGE_SIZE = 256
 endif
 
+ifeq ($(MCU), atxmega64a3u)
+   BOOT_SECTION_START_IN_BYTES = 0x10000
+   FLASH_PAGE_SIZE = 256
+endif
+
 ifeq ($(MCU), atxmega32a4)
    BOOT_SECTION_START_IN_BYTES = 0x8000
    FLASH_PAGE_SIZE = 256
@@ -82,24 +88,18 @@ TARGET = $(PROJECT).elf
 TARGET_BASE = $(PROJECT)
 
 CC = avr-gcc
-
 CPP = avr-g++
 
-## Options common to compile, link and assembly rules
-COMMON = -mmcu=$(MCU)
-
 ## Compile options common for all C compilation units.
-CFLAGS = $(COMMON)
-CFLAGS += -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DFLASH_PAGE_SIZE=$(FLASH_PAGE_SIZE) -DMCU=$(MCU) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON) -DBOOTLOADER_PIN_EN=$(BOOTLOADER_PIN_ON) -DBOOTUP_DELAY=$(BOOTUP_DELAY)
+CFLAGS += -mmcu=$(MCU) -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DFLASH_PAGE_SIZE=$(FLASH_PAGE_SIZE) -DMCU=$(MCU) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON) -DBOOTLOADER_PIN_EN=$(BOOTLOADER_PIN_ON) -DBOOTUP_DELAY=$(BOOTUP_DELAY)
 CFLAGS += -MD -MP -MT $(*F).o
 
 ## Assembly specific flags
-ASMFLAGS = $(COMMON)
 ASMFLAGS += $(CFLAGS)
 ASMFLAGS += -x assembler-with-cpp -Wa,-gdwarf2
 
 ## Linker flags
-LDFLAGS = $(COMMON)
+LDFLAGS = -mmcu=$(MCU)
 LDFLAGS += -Wl,-Map=$(PROJECT).map
 LDFLAGS += -Wl,-section-start=.text=$(BOOT_SECTION_START_IN_BYTES)
 
@@ -134,7 +134,7 @@ CCP_Write.o: CCP_Write.s
 
 ##Link
 $(TARGET): $(OBJECTS)
-	 $(CC) $(LDFLAGS) $(OBJECTS) $(LINKONLYOBJECTS) $(LIBDIRS) $(LIBS) -o $(TARGET)
+	 $(CC)  $(LDFLAGS) $(OBJECTS) $(LINKONLYOBJECTS) $(LIBDIRS) $(LIBS) -o $(TARGET)
 
 %.hex: $(TARGET)
 	avr-objcopy -O ihex $(HEX_FLASH_FLAGS)  $< $@
