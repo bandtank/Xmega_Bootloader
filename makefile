@@ -129,7 +129,7 @@ OBJECTS = eeprom_driver.o $(PROJECT).o serial.o sp_driver.o CCP_Write.o
 LINKONLYOBJECTS =
 
 ## Build
-all: sizebefore $(TARGET) $(PROJECT).hex $(PROJECT).eep sizeafter  $(PROJECT).lss## Compile
+all: sizebefore $(TARGET) $(PROJECT).hex $(PROJECT).eep sizeafter  $(PROJECT).lss
 eeprom_driver.o: eeprom_driver.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
@@ -147,13 +147,13 @@ CCP_Write.o: CCP_Write.s
 
 ##Link
 $(TARGET): $(OBJECTS)
-	 $(CC)  $(LDFLAGS) $(OBJECTS) $(LINKONLYOBJECTS) $(LIBDIRS) $(LIBS) -o $(TARGET)
+	$(CC)  $(LDFLAGS) $(OBJECTS) $(LINKONLYOBJECTS) $(LIBDIRS) $(LIBS) -o $(TARGET)
 
 %.hex: $(TARGET)
 	avr-objcopy -O ihex $(HEX_FLASH_FLAGS)  $< $@
 
 %.eep: $(TARGET)
-	-avr-objcopy $(HEX_EEPROM_FLAGS) -O ihex $< $@ || exit 0
+	avr-objcopy $(HEX_EEPROM_FLAGS) -O ihex $< $@ || exit 0
 
 %.lss: $(TARGET)
 	avr-objdump -h -S $< > $@
@@ -161,7 +161,7 @@ $(TARGET): $(OBJECTS)
 ## Clean target
 .PHONY: clean
 clean:
-	-rm -rf $(OBJECTS) $(PROJECT).elf $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss $(PROJECT).map
+	-rm -rf $(OBJECTS) $(PROJECT).elf $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss $(PROJECT).map $(PROJECT).d
 
 ## Other dependencies
 
@@ -174,12 +174,11 @@ MSG_SIZE_AFTER = Size after:
 
 HEXSIZE = $(SIZE) --target=$(FORMAT) $(TARGET_BASE).hex
 ELFSIZE = $(SIZE) -A $(TARGET_BASE).elf
-AVRMEM = avr-mem.sh $(TARGET_BASE).elf $(MCU)
 
 sizebefore:
 	@if test -f $(TARGET); then echo; echo $(MSG_SIZE_BEFORE); $(ELFSIZE); \
-	$(AVRMEM) 2>/dev/null; echo; fi
+	echo; fi
 
 sizeafter:
 	@if test -f $(TARGET); then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
-	$(AVRMEM) 2>/dev/null; echo; fi
+	echo; fi
