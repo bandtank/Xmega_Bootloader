@@ -59,7 +59,6 @@
 //  It gets values from iox.....h
 
 // SPM control
-#define PAGESIZE                  PROGMEM_PAGE_SIZE
 #define APP_END                   (APP_SECTION_START + APP_SECTION_SIZE)
 
 #if(APP_SECTION_SIZE >= 0x10000)

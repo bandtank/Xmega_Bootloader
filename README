@@ -16,51 +16,59 @@ Bootloader Instructions (configure each setting in the makefile):
 How to configure:
    In the makefile, you will see the following block of text at the top of the file. You should not need to edit anything other than this block of code unless you are adding support for additional baud rates or devices.
 
-   ###############################################################################
-   # User modification section
-   ###############################################################################
-   #  Choose one of the following MCUs:
-   #    If you have a different MCU, you will have to define the
-   #    BOOT_SECTION_START_IN_BYTES and FLASH_PAGE_SIZE_IN_BYTES for
-   #    -section-start and the number of bytes to program at a time respectively.
-   #    This information can be found in the iox....h file as BOOT_SECTION_START
-   #    and PROGMEM_PAGE_SIZE.
-   # MCU = atxmega128a1
-   # MCU = atxmega64a3
-   # MCU = atxmega32a4
-   # MCU = atxmega16a4
-     MCU = atxmega16d4
-     
-   # Choose a baud rate for the UART.
-   #    If you need a baud rate that is not listed in this makefile, you must add
-   #    new configuration statements in config.macros.h. Remember, Xmegas start-up
-   #    with a 2MHz clock.
-   # BAUD_RATE = 9600
-   # BAUD_RATE = 38400
-   # BAUD_RATE = 57600
-     BAUD_RATE = 115200
-     
-   # Specify a pin to check for entry into the bootloader. The notation is
-   # PORT,PIN. For example, if you wanted to use PIN 3 on PORTC, you would set
-   # the option as C,3. Then specifiy the logic value required to enable the
-   # bootloader code (1 = enable the bootloader if the pin is VCC, 0 = enable 
-   # the bootloader if the pin is GND).
-     BOOTLOADER_PIN    = B,2
-     BOOTLOADER_PIN_ON = 1
-     
-   # Specify a pin to control an LED. The notation is PORT,PIN. For example, if
-   # you wanted to use PIN 6 on PORTA, you would set the option as A,6. Then
-   # specifiy the logic value required to enable the LED (1 = output VCC to turn
-   # on the LED, 0 = output GND to turn on the LED).
-     LED_PIN = D,2
-     LED_ON  = 0
-   
-   # Specify which UART to use with PORT,NUM notation. For example, UART1 on
-   # PORTD would be D,1.
-     UART = C,0
-   
-   ###############################################################################
-   # End user modification section
-   ###############################################################################
+###############################################################################
+# User modification section
+###############################################################################
+#  Choose one of the following MCUs:
+#    If you have a different MCU, you will have to define these values:
+#         Name in makefile                   Name in ioxxxx.h
+#         ---------------------------        -----------------------------
+#         BOOT_SECTION_START_IN_BYTES        BOOT_SECTION_START
+#         BOOT_PAGE_SIZE                     BOOT_SECTION_PAGE_SIZE
+#         APP_PAGE_SIZE                      APP_SECTION_PAGE_SIZE
+#
+#    You can find these files in the include path for your compiler. Examples:
+#    1) Winavr:  C:\WinAVR-20100110\avr\include\avr\ioxxxx.h
+#    2) Atmel 3.4.2: C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\
+#       Native\3.4.2.1002\avr8-gnu-toolchain\avr\include\avr\ioxxxx.h
+
+# MCU = atxmega128a1
+# MCU = atxmega64a3
+MCU = atxmega64a3u
+# MCU = atxmega32a4
+# MCU = atxmega16a4
+# MCU = atxmega16d4
+  
+# Choose a baud rate for the UART.
+#    If you need a baud rate that is not listed in this makefile, you must add
+#    new configuration statements in config.macros.h. Remember, Xmegas start-up
+#    with a 2MHz clock.
+# BAUD_RATE = 9600
+# BAUD_RATE = 38400
+# BAUD_RATE = 57600
+  BAUD_RATE = 115200
+  
+# Specify a pin to check for entry into the bootloader. The notation is
+# PORT,PIN. For example, if you wanted to use PIN 3 on PORTC, you would set
+# the option as C,3. Then specifiy the logic value required to enable the
+# bootloader code (1 = enable the bootloader if the pin is VCC, 0 = enable 
+# the bootloader if the pin is GND).
+  BOOTLOADER_PIN    = B,2
+  BOOTLOADER_PIN_ON = 0
+  
+# Specify a pin to control an LED. The notation is PORT,PIN. For example, if
+# you wanted to use PIN 6 on PORTA, you would set the option as A,6. Then
+# specifiy the logic value required to enable the LED (1 = output VCC to turn
+# on the LED, 0 = output GND to turn on the LED).
+  LED_PIN = D,2
+  LED_ON  = 0
+
+# Specify which UART to use with PORT,NUM notation. For example, UART1 on
+# PORTD would be D,1.
+  UART = C,0
+
+###############################################################################
+# End user modification section
+###############################################################################
 
 Please email me (anthonyandriano@gmail.com) if you have any questions or comments about the code. I will respond very quickly.

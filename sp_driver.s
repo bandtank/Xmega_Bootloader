@@ -385,11 +385,11 @@ SP_LoadFlashPage:
 	ldi 	r20, NVM_CMD_LOAD_FLASH_BUFFER_gc  ; Prepare NVM command code in R20.
 	sts	NVM_CMD, r20                       ; Load it into NVM command register.
 
-#if FLASH_PAGE_SIZE > 512
-	ldi	r22, ((FLASH_PAGE_SIZE/2) >> 8)
+#if APP_PAGE_SIZE > 512
+	ldi	r22, ((APP_PAGE_SIZE/2) >> 8)
 #endif
 
-	ldi	r21, ((FLASH_PAGE_SIZE/2)&0xFF)    ; Load R21 with page word count.
+	ldi	r21, ((APP_PAGE_SIZE/2)&0xFF)    ; Load R21 with page word count.
 	ldi	r18, CCP_SPM_gc                    ; Prepare Protect SPM signature in R16.
 
 SP_LoadFlashPage_1:
@@ -399,7 +399,7 @@ SP_LoadFlashPage_1:
 	spm                    ; Self-program.
 	adiw	ZL, 2          ; Move Z to next Flash word.
 
-#if FLASH_PAGE_SIZE > 512
+#if APP_PAGE_SIZE > 512
 	subi	r21, 1         ; Decrement word count.
 	sbci	r22, 0
 #else
@@ -441,11 +441,11 @@ SP_ReadFlashPage:
 	ldi	r20, NVM_CMD_NO_OPERATION_gc ; Prepare NVM command code in R20.
 	sts	NVM_CMD, r20                 ; Set NVM command to No Operation so that LPM reads Flash.
 
-#if FLASH_PAGE_SIZE > 512
-	ldi	r22, ((FLASH_PAGE_SIZE/2) >> 8) ; Load R22 with byte cont high if flash page is large.
+#if APP_PAGE_SIZE > 512
+	ldi	r22, ((APP_PAGE_SIZE/2) >> 8) ; Load R22 with byte cont high if flash page is large.
 #endif	
 
-	ldi	r21, ((FLASH_PAGE_SIZE)&0xFF)   ; Load R21 with byte count.
+	ldi	r21, ((APP_PAGE_SIZE)&0xFF)   ; Load R21 with byte count.
 
 SP_ReadFlashPage_1:
 	elpm	r24, Z+                         ; Load Flash bytes into R18:r19
@@ -453,7 +453,7 @@ SP_ReadFlashPage_1:
 	st	X+, r24                         ; Write bytes to buffer.
 	st	X+, r25
 
-#if FLASH_PAGE_SIZE > 512
+#if APP_PAGE_SIZE > 512
 	subi	r21, 1                          ; Decrement word count.
 	sbci	r22, 0
 #else

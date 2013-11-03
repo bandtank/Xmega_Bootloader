@@ -44,8 +44,8 @@
 unsigned char BlockLoad(unsigned int size, unsigned char mem, ADDR_T *address);
 void BlockRead(unsigned int size, unsigned char mem, ADDR_T *address);
 
-/* BLOCKSIZE should be chosen so that the following holds: BLOCKSIZE*n = PAGESIZE,  where n=1,2,3... */
-#define BLOCKSIZE PAGESIZE
+/* BLOCKSIZE should be chosen so that the following holds: BLOCKSIZE*n = APP_PAGE_SIZE,  where n=1,2,3... */
+#define BLOCKSIZE APP_PAGE_SIZE
 
 #endif /* REMOVE_BLOCK_SUPPORT */
 
@@ -119,7 +119,7 @@ int main(void)
             // Chip erase.
             else if(val=='e')
             {
-                for(address = 0; address < APP_END; address += PAGESIZE)
+                for(address = 0; address < APP_END; address += APP_PAGE_SIZE)
                 { // NOTE: Here we use address as a byte-address, not word-address, for convenience.
                     SP_WaitForSPM();
 #ifdef __ICCAVR__

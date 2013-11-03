@@ -9,14 +9,21 @@ PROJECT = Xmega_Bootloader
 # User modification section
 ###############################################################################
 #  Choose one of the following MCUs:
-#    If you have a different MCU, you will have to define the
-#    BOOT_SECTION_START_IN_BYTES and FLASH_PAGE_SIZE_IN_BYTES for
-#    -section-start and the number of bytes to program at a time respectively.
-#    This information can be found in the iox....h file as BOOT_SECTION_START
-#    and PROGMEM_PAGE_SIZE.
+#    If you have a different MCU, you will have to define these values:
+#         Name in makefile                   Name in ioxxxx.h
+#         ---------------------------        -----------------------------
+#         BOOT_SECTION_START_IN_BYTES        BOOT_SECTION_START
+#         BOOT_PAGE_SIZE                     BOOT_SECTION_PAGE_SIZE
+#         APP_PAGE_SIZE                      APP_SECTION_PAGE_SIZE
+#
+#    You can find these files in the include path for your compiler. Examples:
+#    1) Winavr:  C:\WinAVR-20100110\avr\include\avr\ioxxxx.h
+#    2) Atmel 3.4.2: C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\
+#       Native\3.4.2.1002\avr8-gnu-toolchain\avr\include\avr\ioxxxx.h
+
 # MCU = atxmega128a1
-MCU = atxmega64a3
-# MCU = atxmega64a3u
+# MCU = atxmega64a3
+MCU = atxmega64a3u
 # MCU = atxmega32a4
 # MCU = atxmega16a4
 # MCU = atxmega16d4
@@ -56,32 +63,38 @@ MCU = atxmega64a3
 ## Set configuration options based on MCU model  
 ifeq ($(MCU), atxmega128a1)
    BOOT_SECTION_START_IN_BYTES = 0x20000
-   FLASH_PAGE_SIZE = 512
+   BOOT_PAGE_SIZE = 512
+   APP_PAGE_SIZE = 512
 endif
 
 ifeq ($(MCU), atxmega64a3)
    BOOT_SECTION_START_IN_BYTES = 0x10000
-   FLASH_PAGE_SIZE = 256
+   BOOT_PAGE_SIZE = 256
+   APP_PAGE_SIZE = 256
 endif
 
 ifeq ($(MCU), atxmega64a3u)
    BOOT_SECTION_START_IN_BYTES = 0x10000
-   FLASH_PAGE_SIZE = 256
+   BOOT_PAGE_SIZE = 256
+   APP_PAGE_SIZE = 256
 endif
 
 ifeq ($(MCU), atxmega32a4)
    BOOT_SECTION_START_IN_BYTES = 0x8000
-   FLASH_PAGE_SIZE = 256
+   BOOT_PAGE_SIZE = 256
+   APP_PAGE_SIZE = 256
 endif
 
 ifeq ($(MCU), atxmega16a4)
    BOOT_SECTION_START_IN_BYTES = 0x4000
-   FLASH_PAGE_SIZE = 256
+   BOOT_PAGE_SIZE = 256
+   APP_PAGE_SIZE = 256
 endif
 
 ifeq ($(MCU), atxmega16d4)
    BOOT_SECTION_START_IN_BYTES = 0x4000
-   FLASH_PAGE_SIZE = 256
+   BOOT_PAGE_SIZE = 256
+   APP_PAGE_SIZE = 256
 endif
 
 TARGET = $(PROJECT).elf
@@ -91,7 +104,7 @@ CC = avr-gcc
 CPP = avr-g++
 
 ## Compile options common for all C compilation units.
-CFLAGS += -mmcu=$(MCU) -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DFLASH_PAGE_SIZE=$(FLASH_PAGE_SIZE) -DMCU=$(MCU) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON) -DBOOTLOADER_PIN_EN=$(BOOTLOADER_PIN_ON) -DBOOTUP_DELAY=$(BOOTUP_DELAY)
+CFLAGS += -mmcu=$(MCU) -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DBOOT_PAGE_SIZE=$(BOOT_PAGE_SIZE) -DAPP_PAGE_SIZE=$(APP_PAGE_SIZE) -DMCU=$(MCU) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON) -DBOOTLOADER_PIN_EN=$(BOOTLOADER_PIN_ON) -DBOOTUP_DELAY=$(BOOTUP_DELAY)
 CFLAGS += -MD -MP -MT $(*F).o
 
 ## Assembly specific flags
