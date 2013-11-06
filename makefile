@@ -23,10 +23,10 @@ PROJECT = Xmega_Bootloader
 
 # MCU = atxmega128a1
 # MCU = atxmega64a3
-MCU = atxmega64a3u
+# MCU = atxmega64a3u
 # MCU = atxmega32a4
 # MCU = atxmega16a4
-# MCU = atxmega16d4
+  MCU = atxmega16d4
   
 # Choose a baud rate for the UART.
 #    If you need a baud rate that is not listed in this makefile, you must add
