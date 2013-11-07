@@ -26,15 +26,6 @@ void initbootuart(void)
  */
 void sendchar(unsigned char c)
 {
-	//Wait until the resource is available.
-	//I changed this function from Atmel's version because
-	//their code forced a wait after the byte was loaded
-	//into the register. If you load the data and leave, you
-	//are likely to wait far less time as the main thread
-	//could be doing other things. Always waiting guarantees
-	//that you clog up the thread, but waiting before trying
-	//has a distinct advantage as the resource may already
-	//be available.
 	Uart(MY_UART).DATA = c; // prepare transmission
 	while (!(Uart(MY_UART).STATUS & (1 << USART_DREIF_bp)));
 }

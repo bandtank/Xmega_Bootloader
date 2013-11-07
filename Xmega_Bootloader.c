@@ -297,10 +297,10 @@ int main(void)
 			// Exit bootloader.
 			else if(val=='E')
 			{
-            	sendchar('\r');
-				//Wait for the character to finish sending before resetting
-				while (!(Uart(MY_UART).STATUS & (1 << USART_DREIF_bp)));
-                
+				// Clear the transmit complete flag
+				Uart(MY_UART).STATUS = (1 << USART_TXCIF_bp);
+				sendchar('\r');
+				while (!(Uart(MY_UART).STATUS & (1 << USART_TXCIF_bp)));
 				SP_WaitForSPM();
 				CCP_RST();
 			}
