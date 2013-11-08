@@ -61,7 +61,7 @@ int main(void)
 	Port(ENTER_BOOTLOADER_PIN).Pin_control(ENTER_BOOTLOADER_PIN) = PORT_OPC_PULLUP_gc;
 	
 	//This delay allows the pull-up resistor sufficient time to pull high.
-	//Realistically it only needs to be ~1uS, so waiting for 5 cycels @ 2MHz
+	//Realistically it only needs to be ~1uS, so waiting 5 cycles @ 2MHz
 	//will be a 2.5uS delay.
 	__builtin_avr_delay_cycles(5);
 
@@ -76,10 +76,16 @@ int main(void)
 	#error Invalid value for BOOTLOADER_PIN_EN
 #endif
 	{
+		// Check to see if the SPM lock bit is still set. Reset to clear the lock
+		// bit while hopefully still hitting the bootloader entry condition.
+		if(NVM.CTRLB & NVM_SPMLOCK_bm) { 
+			CCP_RST(); 
+        }
+		
 		/* Initialization */
 		ADDR_T address = 0;
 		unsigned int temp_int = 0;
-		unsigned char val = 0;
+		unsigned char val = 0; 
 		
 		EEPROM_FlushBuffer();
 		EEPROM_DisableMapping();
@@ -297,9 +303,8 @@ int main(void)
 			// Exit bootloader.
 			else if(val=='E')
 			{
-				// Clear the transmit complete flag
-				Uart(MY_UART).STATUS = (1 << USART_TXCIF_bp);
-				sendchar('\r');
+				Uart(MY_UART).STATUS = (1 << USART_TXCIF_bp); // Clear flag
+				sendchar('\r'); // Answer OK
 				while (!(Uart(MY_UART).STATUS & (1 << USART_TXCIF_bp)));
 				SP_WaitForSPM();
 				CCP_RST();
