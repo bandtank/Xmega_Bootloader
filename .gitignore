@@ -1,3 +1,4 @@
+*.atsuo
 Xmega_Bootloader.eep
 Xmega_Bootloader.elf
 Xmega_Bootloader.hex
