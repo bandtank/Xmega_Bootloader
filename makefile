@@ -21,12 +21,51 @@ PROJECT = Xmega_Bootloader
 #    2) Atmel 3.4.2: C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\
 #       Native\3.4.2.1002\avr8-gnu-toolchain\avr\include\avr\ioxxxx.h
 
-# MCU = atxmega128a1
-# MCU = atxmega64a3
-# MCU = atxmega64a3u
-# MCU = atxmega32a4
-# MCU = atxmega16a4
-  MCU = atxmega16d4
+#  MCU = atxmega8e5
+#  MCU = atxmega16a4
+#  MCU = atxmega16a4u
+#  MCU = atxmega16c4
+MCU = atxmega16d4
+#  MCU = atxmega16e5
+#  MCU = atxmega32a4
+#  MCU = atxmega32a4u
+#  MCU = atxmega32c3
+#  MCU = atxmega32c4
+#  MCU = atxmega32d3
+#  MCU = atxmega32d4
+#  MCU = atxmega32e5
+#  MCU = atxmega64a1
+#  MCU = atxmega64a1u
+#  MCU = atxmega64a3
+#  MCU = atxmega64a3u
+#  MCU = atxmega64a4u
+#  MCU = atxmega64b1
+#  MCU = atxmega64b3
+#  MCU = atxmega64c3
+#  MCU = atxmega64d3
+#  MCU = atxmega64d4
+#  MCU = atxmega128a1
+#  MCU = atxmega128a1u
+#  MCU = atxmega128a3
+#  MCU = atxmega128a3u
+#  MCU = atxmega128a4u
+#  MCU = atxmega128b1
+#  MCU = atxmega128b3
+#  MCU = atxmega128c3
+#  MCU = atxmega128d3
+#  MCU = atxmega128d4
+#  MCU = atxmega192a3
+#  MCU = atxmega192a3u
+#  MCU = atxmega192c3
+#  MCU = atxmega192d3
+#  MCU = atxmega256a3
+#  MCU = atxmega256a3b
+#  MCU = atxmega256a3bu
+#  MCU = atxmega256a3u
+#  MCU = atxmega256c3
+#  MCU = atxmega256d3
+#  MCU = atxmega384c3
+#  MCU = atxmega384d3
   
 # Choose a baud rate for the UART.
 #    If you need a baud rate that is not listed in this makefile, you must add
@@ -61,40 +100,230 @@ PROJECT = Xmega_Bootloader
 ###############################################################################
   
 ## Set configuration options based on MCU model  
-ifeq ($(MCU), atxmega128a1)
-   BOOT_SECTION_START_IN_BYTES = 0x20000
-   BOOT_PAGE_SIZE = 512
-   APP_PAGE_SIZE = 512
+ifeq ($(MCU), atxmega8e5)
+    BOOT_SECTION_START_IN_BYTES = 0x2000
+    BOOT_PAGE_SIZE = 128
+    APP_PAGE_SIZE = 128
 endif
-
-ifeq ($(MCU), atxmega64a3)
-   BOOT_SECTION_START_IN_BYTES = 0x10000
-   BOOT_PAGE_SIZE = 256
-   APP_PAGE_SIZE = 256
-endif
-
-ifeq ($(MCU), atxmega64a3u)
-   BOOT_SECTION_START_IN_BYTES = 0x10000
-   BOOT_PAGE_SIZE = 256
-   APP_PAGE_SIZE = 256
-endif
-
-ifeq ($(MCU), atxmega32a4)
-   BOOT_SECTION_START_IN_BYTES = 0x8000
-   BOOT_PAGE_SIZE = 256
-   APP_PAGE_SIZE = 256
-endif
-
 ifeq ($(MCU), atxmega16a4)
-   BOOT_SECTION_START_IN_BYTES = 0x4000
-   BOOT_PAGE_SIZE = 256
-   APP_PAGE_SIZE = 256
+    BOOT_SECTION_START_IN_BYTES = 0x4000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
 endif
-
+ifeq ($(MCU), atxmega16a4u)
+    BOOT_SECTION_START_IN_BYTES = 0x4000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega16c4)
+    BOOT_SECTION_START_IN_BYTES = 0x4000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
 ifeq ($(MCU), atxmega16d4)
-   BOOT_SECTION_START_IN_BYTES = 0x4000
-   BOOT_PAGE_SIZE = 256
-   APP_PAGE_SIZE = 256
+    BOOT_SECTION_START_IN_BYTES = 0x4000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega16e5)
+    BOOT_SECTION_START_IN_BYTES = 0x4000
+    BOOT_PAGE_SIZE = 128
+    APP_PAGE_SIZE = 128
+endif
+ifeq ($(MCU), atxmega32a4)
+    BOOT_SECTION_START_IN_BYTES = 0x8000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega32a4u)
+    BOOT_SECTION_START_IN_BYTES = 0x8000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega32c3)
+    BOOT_SECTION_START_IN_BYTES = 0x8000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega32c4)
+    BOOT_SECTION_START_IN_BYTES = 0x8000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega32d3)
+    BOOT_SECTION_START_IN_BYTES = 0x8000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega32d4)
+    BOOT_SECTION_START_IN_BYTES = 0x8000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega32e5)
+    BOOT_SECTION_START_IN_BYTES = 0x8000
+    BOOT_PAGE_SIZE = 128
+    APP_PAGE_SIZE = 128
+endif
+ifeq ($(MCU), atxmega64a1)
+    BOOT_SECTION_START_IN_BYTES = 0x10000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega64a1u)
+    BOOT_SECTION_START_IN_BYTES = 0x10000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega64a3)
+    BOOT_SECTION_START_IN_BYTES = 0x10000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega64a3u)
+    BOOT_SECTION_START_IN_BYTES = 0x10000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega64a4u)
+    BOOT_SECTION_START_IN_BYTES = 0x10000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega64b1)
+    BOOT_SECTION_START_IN_BYTES = 0x10000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega64b3)
+    BOOT_SECTION_START_IN_BYTES = 0x10000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega64c3)
+    BOOT_SECTION_START_IN_BYTES = 0x10000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega64d3)
+    BOOT_SECTION_START_IN_BYTES = 0x10000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega64d4)
+    BOOT_SECTION_START_IN_BYTES = 0x10000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega128a1)
+    BOOT_SECTION_START_IN_BYTES = 0x20000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega128a1u)
+    BOOT_SECTION_START_IN_BYTES = 0x20000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega128a3)
+    BOOT_SECTION_START_IN_BYTES = 0x20000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega128a3u)
+    BOOT_SECTION_START_IN_BYTES = 0x20000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega128a4u)
+    BOOT_SECTION_START_IN_BYTES = 0x20000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega128b1)
+    BOOT_SECTION_START_IN_BYTES = 0x20000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega128b3)
+    BOOT_SECTION_START_IN_BYTES = 0x20000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega128c3)
+    BOOT_SECTION_START_IN_BYTES = 0x20000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega128d3)
+    BOOT_SECTION_START_IN_BYTES = 0x20000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega128d4)
+    BOOT_SECTION_START_IN_BYTES = 0x20000
+    BOOT_PAGE_SIZE = 256
+    APP_PAGE_SIZE = 256
+endif
+ifeq ($(MCU), atxmega192a3)
+    BOOT_SECTION_START_IN_BYTES = 0x30000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega192a3u)
+    BOOT_SECTION_START_IN_BYTES = 0x30000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega192c3)
+    BOOT_SECTION_START_IN_BYTES = 0x30000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega192d3)
+    BOOT_SECTION_START_IN_BYTES = 0x30000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega256a3)
+    BOOT_SECTION_START_IN_BYTES = 0x40000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega256a3b)
+    BOOT_SECTION_START_IN_BYTES = 0x40000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega256a3bu)
+    BOOT_SECTION_START_IN_BYTES = 0x40000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega256a3u)
+    BOOT_SECTION_START_IN_BYTES = 0x40000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega256c3)
+    BOOT_SECTION_START_IN_BYTES = 0x40000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega256d3)
+    BOOT_SECTION_START_IN_BYTES = 0x40000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega384c3)
+    BOOT_SECTION_START_IN_BYTES = 0x60000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
+endif
+ifeq ($(MCU), atxmega384d3)
+    BOOT_SECTION_START_IN_BYTES = 0x60000
+    BOOT_PAGE_SIZE = 512
+    APP_PAGE_SIZE = 512
 endif
 
 TARGET = $(PROJECT).elf
@@ -104,7 +333,7 @@ CC = avr-gcc
 CPP = avr-g++
 
 ## Compile options common for all C compilation units.
-CFLAGS += -mmcu=$(MCU) -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DBOOT_PAGE_SIZE=$(BOOT_PAGE_SIZE) -DAPP_PAGE_SIZE=$(APP_PAGE_SIZE) -DMCU=$(MCU) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON) -DBOOTLOADER_PIN_EN=$(BOOTLOADER_PIN_ON) -DBOOTUP_DELAY=$(BOOTUP_DELAY)
+CFLAGS += -mmcu=$(MCU) -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DBOOT_PAGE_SIZE=$(BOOT_PAGE_SIZE) -DAPP_PAGE_SIZE=$(APP_PAGE_SIZE) -DMCU=$(MCU) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON) -DBOOTLOADER_PIN_EN=$(BOOTLOADER_PIN_ON)
 CFLAGS += -MD -MP -MT $(*F).o
 
 ## Assembly specific flags
@@ -129,7 +358,9 @@ OBJECTS = eeprom_driver.o $(PROJECT).o serial.o sp_driver.o CCP_Write.o
 LINKONLYOBJECTS =
 
 ## Build
-all: sizebefore $(TARGET) $(PROJECT).hex $(PROJECT).eep sizeafter  $(PROJECT).lss
+all: $(TARGET) $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss
+# Uncomment if you want sizebefore and size after to execute
+#all: sizebefore $(TARGET) $(PROJECT).hex $(PROJECT).eep sizeafter  $(PROJECT).lss
 eeprom_driver.o: eeprom_driver.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
