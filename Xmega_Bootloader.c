@@ -90,7 +90,7 @@ int main(void)
 
                 EEPROM_LoadPage(&val);                        // Write random values to the page buffer
                 EEPROM_EraseAll();                            // Erasing all pages in the EEPROM
-                sendchar(RESPONSE_YES);                       // Send OK back.
+                sendchar(RESPONSE_OKAY);                      // Send OK
             }
 
 #ifndef REMOVE_BLOCK_SUPPORT
