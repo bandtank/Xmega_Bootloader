@@ -1,30 +1,32 @@
-Welcome to the XmegaBl. This bootloader implements the AVR911 protocol and is purposefully stripped
-of the unnecessary bloat in an effort to keep it simple and efficient. 
+Welcome to the XmegaBl. This bootloader implements the AVR911 protocol and is
+purposefully stripped of the unnecessary bloat in an effort to keep it simple
+and efficient. 
 
 Bootloader information:
-   1. It works with all Xmegas, but may require you to add support if it isn't already in the makefile.
-      Note: AVR-GCC has to support the particular Xmega you want to use as well. AVRDUDE 5.10 lacks
-	  support for many, many Xmegas, so you may need to acquire a newer version if you're simply using
+   1. It works with all Xmegas, but may require you to add support if it isn't
+      already in the makefile. Note: AVR-GCC has to support the particular
+	  Xmega you want to use as well. AVRDUDE 5.10 lacks support for many, many
+	  Xmegas, so you may need to acquire a newer version if you're simply using
 	  the bundled version that came with Winavr.
    2. It requires AVR-GCC to build.
    3. It uses the AVR911 protocol.
    4. It works with avrdude version 5.10 and Avr-OSP II version .549.
-   5. Compilation size should be 2600-3000 bytes depending on the size of your AVR (>64k flash =
-      bigger code).
-   6. Unless you are adding support for unsupported baud rates or Xmegas, you do NOT need to edit
-      any source code.
+   5. Compilation size should be 2600-3000 bytes depending on the size of your
+      AVR (>64k flash = bigger code).
+   6. Unless you are adding support for unsupported baud rates or Xmegas, you
+      do NOT need to edit any source code.
 
 Bootloader Instructions (configure each setting in the makefile):
-   1. It checks a pin (Active high/low and Pin/Port are configurable) for bootloader entry or
-      application entry.
-   2. An LED can be turned on when the bootloader is entered. Active high/low and Pin/Port are
-      configurable.
+   1. It checks a pin (Active high/low and Pin/Port are configurable) for
+      bootloader entry or application entry.
+   2. An LED can be turned on when the bootloader is entered. Active high/low
+      and Pin/Port are configurable.
    3. The default baud rate is 115200, but this can be set to anything you want.
  
 How to configure:
-   In the makefile, you will see the following block of text at the top of the file. You should not
-   need to edit anything other than this block of code unless you are adding support for additional
-   baud rates or devices.
+   In the makefile, you will see the following block of text at the top of the
+   file. You should not need to edit anything other than this block of code
+   unless you are adding support for additional baud rates or devices.
 
 ###############################################################################
 # User modification section
