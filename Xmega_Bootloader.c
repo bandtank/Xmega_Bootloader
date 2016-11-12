@@ -63,7 +63,7 @@ int main(void)
         #error Invalid value for LED_ON
     #endif
 
-        initbootuart();                                       // Initialize UART.
+        init_comm_device();                                   // Initialize the defined communication device (UART, etc.).
 
         for(;;) {
             val = recchar();                                  // Wait for command character.

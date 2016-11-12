@@ -37,7 +37,6 @@
 
 #include <avr/io.h>
 #include "config_macros.h"
-#include "serial.h"
 #include "eeprom_driver.h"
 #include "sp_driver.h"
 
@@ -78,5 +77,23 @@
 #define RESPONSE_UNKNOWN           '?'
 
 extern void CCP_RST( void );
+
+#ifdef INTERFACE
+  #if INTERFACE==UART
+    #include "serial.h"
+    #define init_comm_device() uart_init()
+    #define sendchar(a) uart_sendchar()
+    #define recchar(a) uart_recchar()
+  #elif INTERFACE==W5500_TCP_RAW
+    #include "w5500.h"
+    #define init_comm_device() w5500_init()
+    #define sendchar(a) w5500_tcp_sendchar()
+    #define recchar(a) w5500_tcp_recchar()
+  #else
+    #error unsupported INTERFACE
+  #endif
+#else
+  #error INTERFACE not defined
+#endif
 
 #endif

@@ -1,7 +1,5 @@
 #include "serial.h"
 
-#if INTERFACE==UART
-
 /*! \brief Initializing UART communcation.
  *
  *  This function initializes the UART communication with generic parameters as mentioned below.
@@ -46,5 +44,3 @@ unsigned char recchar(void)
     while(!(Uart(MY_UART).STATUS & USART_RXCIF_bm));  // wait for data
     return Uart(MY_UART).DATA;
 }
-
-#endif
