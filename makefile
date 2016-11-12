@@ -381,7 +381,7 @@ CC = avr-gcc
 CPP = avr-g++
 
 ## Compile options common for all C compilation units.
-CFLAGS += -mmcu=$(MCU) -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DBOOT_PAGE_SIZE=$(BOOT_PAGE_SIZE) -DAPP_PAGE_SIZE=$(APP_PAGE_SIZE) -DMCU=$(MCU) -DINTERFACE=$(INTERFACE) -DMY_SPI=$(SPI) -DSPI_SS_PIN=$(SPI_SS_PIN) -DW5500_INT_PIN=$(W5500_INT_PIN) -DMAC_ADDRESS_LOCATION=$(MAC_ADDRESS_LOCATION) -DMAC_ADDRESS_OFFSET=$(MAC_ADDRESS_OFFSET) -DIP_INFO_LOCATION=$(IP_INFO_LOCATION)-DIP_INFO_OFFSET=$(IP_INFO_OFFSET) -DTCP_PORT=$(TCP_PORT) -DMY_TWI=$(TWI) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON) -DBOOTLOADER_PIN_EN=$(BOOTLOADER_PIN_ON)
+CFLAGS += -mmcu=$(MCU) -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DBOOT_PAGE_SIZE=$(BOOT_PAGE_SIZE) -DAPP_PAGE_SIZE=$(APP_PAGE_SIZE) -DMCU=$(MCU) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON) -DBOOTLOADER_PIN_EN=$(BOOTLOADER_PIN_ON) -DINTERFACE=$(INTERFACE) -DMY_SPI=$(SPI) -DSPI_SS_PIN=$(SPI_SS_PIN) -DW5500_INT_PIN=$(W5500_INT_PIN) -DMAC_ADDRESS_LOCATION=$(MAC_ADDRESS_LOCATION) -DMAC_ADDRESS_OFFSET=$(MAC_ADDRESS_OFFSET) -DIP_INFO_LOCATION=$(IP_INFO_LOCATION)-DIP_INFO_OFFSET=$(IP_INFO_OFFSET) -DTCP_PORT=$(TCP_PORT) -DMY_TWI=$(TWI)
 CFLAGS += -MD -MP -MT $(*F).o
 
 ## Assembly specific flags
@@ -400,7 +400,7 @@ HEX_EEPROM_FLAGS += --set-section-flags=.eeprom="alloc,load"
 HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 ## Objects that must be built in order to link
-OBJECTS = i2c_master.o spi_master.o w5500.o eeprom_driver.o $(PROJECT).o serial.o sp_driver.o CCP_Write.o
+OBJECTS = $(PROJECT).o serial.o sp_driver.o CCP_Write.o i2c_master.o spi_master.o w5500.o eeprom_driver.o
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS =
@@ -409,18 +409,6 @@ LINKONLYOBJECTS =
 all: $(TARGET) $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss
 # Uncomment if you want sizebefore and size after to execute
 #all: sizebefore $(TARGET) $(PROJECT).hex $(PROJECT).eep sizeafter  $(PROJECT).lss
-i2c_master.o: i2c_master.c
-	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
-
-spi_master.o: spi_master.c
-	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
-
-w5500.o: w5500.c
-	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
-
-eeprom_driver.o: eeprom_driver.c
-	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
-
 $(PROJECT).o: $(PROJECT).c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
@@ -432,6 +420,18 @@ sp_driver.o: sp_driver.s
 
 CCP_Write.o: CCP_Write.s
 	$(CC) $(INCLUDES) $(ASMFLAGS) -c  $<
+
+i2c_master.o: i2c_master.c
+    $(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+spi_master.o: spi_master.c
+    $(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+w5500.o: w5500.c
+    $(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+eeprom_driver.o: eeprom_driver.c
+    $(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 ##Link
 $(TARGET): $(OBJECTS)
