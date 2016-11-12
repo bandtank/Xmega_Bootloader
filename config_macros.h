@@ -2,7 +2,6 @@
 #ifndef CONFIG_MACROS_H
 #define CONFIG_MACROS_H
 
-
 #define xCAT2(a,b) a##b
 #define CAT2(a,b) xCAT2(a,b)
 
@@ -11,7 +10,6 @@
 
 #define xCAT5(a,b,c,d,e) a##b##c#d#e
 #define CAT5(a,b,c,d,e) xCAT3(a,b,c,d,e)
-
 
 #define CAT_PORT(a,b,c) xCAT2(a,b)
 #define Port(a) CAT_PORT(PORT,a)
@@ -35,8 +33,6 @@
 
 #define Make_Uart_Name(uart)  CAT2(USART, uart)
 #define Uart(my_uart)  Make_Uart_Name(CAT2(my_uart))
-
-
 
 #if  (BAUD_RATE == 9600)
 #define  BRREG_VALUE  12

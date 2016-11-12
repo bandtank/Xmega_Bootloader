@@ -12,10 +12,10 @@
  */
 void initbootuart(void)
 {
-	Port(MY_UART).DIRSET = TX_Pin(MY_UART);
-	Uart(MY_UART).BAUDCTRLA = BRREG_VALUE;
-	Uart(MY_UART).BAUDCTRLB = (SCALE_VALUE << USART_BSCALE_gp) & USART_BSCALE_gm;
-	Uart(MY_UART).CTRLB = USART_RXEN_bm | USART_TXEN_bm; // enable receive and transmit
+    Port(MY_UART).DIRSET = TX_Pin(MY_UART);
+    Uart(MY_UART).BAUDCTRLA = BRREG_VALUE;
+    Uart(MY_UART).BAUDCTRLB = (SCALE_VALUE << USART_BSCALE_gp) & USART_BSCALE_gm;
+    Uart(MY_UART).CTRLB = USART_RXEN_bm | USART_TXEN_bm; // enable receive and transmit
 }
 
 /*! \brief Transmitting a character UART communcation.
@@ -28,8 +28,8 @@ void initbootuart(void)
  */
 void sendchar(unsigned char c)
 {
-	Uart(MY_UART).DATA = c; // prepare transmission
-	while (!(Uart(MY_UART).STATUS & (1 << USART_DREIF_bp)));
+    Uart(MY_UART).DATA = c; // prepare transmission
+    while (!(Uart(MY_UART).STATUS & (1 << USART_DREIF_bp)));
 }
 
 /*! \brief Receiving a character in UART communcation.
@@ -43,8 +43,8 @@ void sendchar(unsigned char c)
 
 unsigned char recchar(void)
 {
-	while(!(Uart(MY_UART).STATUS & USART_RXCIF_bm));  // wait for data
-	return Uart(MY_UART).DATA;
+    while(!(Uart(MY_UART).STATUS & USART_RXCIF_bm));  // wait for data
+    return Uart(MY_UART).DATA;
 }
 
 #endif

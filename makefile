@@ -410,16 +410,16 @@ all: $(TARGET) $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss
 # Uncomment if you want sizebefore and size after to execute
 #all: sizebefore $(TARGET) $(PROJECT).hex $(PROJECT).eep sizeafter  $(PROJECT).lss
 $(PROJECT).o: $(PROJECT).c
-	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+    $(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 serial.o: serial.c
-	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+    $(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 sp_driver.o: sp_driver.s
-	$(CC) $(INCLUDES) $(ASMFLAGS) -c  $<
+    $(CC) $(INCLUDES) $(ASMFLAGS) -c  $<
 
 CCP_Write.o: CCP_Write.s
-	$(CC) $(INCLUDES) $(ASMFLAGS) -c  $<
+    $(CC) $(INCLUDES) $(ASMFLAGS) -c  $<
 
 i2c_master.o: i2c_master.c
     $(CC) $(INCLUDES) $(CFLAGS) -c  $<
@@ -435,21 +435,21 @@ eeprom_driver.o: eeprom_driver.c
 
 ##Link
 $(TARGET): $(OBJECTS)
-	$(CC)  $(LDFLAGS) $(OBJECTS) $(LINKONLYOBJECTS) $(LIBDIRS) $(LIBS) -o $(TARGET)
+    $(CC)  $(LDFLAGS) $(OBJECTS) $(LINKONLYOBJECTS) $(LIBDIRS) $(LIBS) -o $(TARGET)
 
 %.hex: $(TARGET)
-	avr-objcopy -O ihex $(HEX_FLASH_FLAGS)  $< $@
+    avr-objcopy -O ihex $(HEX_FLASH_FLAGS)  $< $@
 
 %.eep: $(TARGET)
-	avr-objcopy $(HEX_EEPROM_FLAGS) -O ihex $< $@ || exit 0
+    avr-objcopy $(HEX_EEPROM_FLAGS) -O ihex $< $@ || exit 0
 
 %.lss: $(TARGET)
-	avr-objdump -h -S $< > $@
+    avr-objdump -h -S $< > $@
 
 ## Clean target
 .PHONY: clean
 clean:
-	-rm -rf $(OBJECTS) $(PROJECT).elf $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss $(PROJECT).map $(PROJECT).d
+    -rm -rf $(OBJECTS) $(PROJECT).elf $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss $(PROJECT).map $(PROJECT).d
 
 ## Other dependencies
 
@@ -464,9 +464,9 @@ HEXSIZE = $(SIZE) --target=$(FORMAT) $(TARGET_BASE).hex
 ELFSIZE = $(SIZE) -A $(TARGET_BASE).elf
 
 sizebefore:
-	@if test -f $(TARGET); then echo; echo $(MSG_SIZE_BEFORE); $(ELFSIZE); \
-	echo; fi
+    @if test -f $(TARGET); then echo; echo $(MSG_SIZE_BEFORE); $(ELFSIZE); \
+    echo; fi
 
 sizeafter:
-	@if test -f $(TARGET); then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
-	echo; fi
+    @if test -f $(TARGET); then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
+    echo; fi
