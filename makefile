@@ -25,7 +25,7 @@ PROJECT = Xmega_Bootloader
 #  MCU = atxmega16a4
 #  MCU = atxmega16a4u
 #  MCU = atxmega16c4
-MCU = atxmega16d4
+#  MCU = atxmega16d4
 #  MCU = atxmega16e5
 #  MCU = atxmega32a4
 #  MCU = atxmega32a4u
@@ -47,7 +47,7 @@ MCU = atxmega16d4
 #  MCU = atxmega128a1
 #  MCU = atxmega128a1u
 #  MCU = atxmega128a3
-#  MCU = atxmega128a3u
+MCU = atxmega128a3u
 #  MCU = atxmega128a4u
 #  MCU = atxmega128b1
 #  MCU = atxmega128b3
@@ -67,10 +67,57 @@ MCU = atxmega16d4
 #  MCU = atxmega384c3
 #  MCU = atxmega384d3
   
+# Choose one of the following interfaces:
+# INTERFACE = UART
+  INTERFACE = W5500_TCP_RAW
+
+# Specify which SPI to use. For example, E for the PORTE SPI (SPIE).
+# Applicable if BOOTLOADER_INTERFACE = W5500_TCP_RAW.
+  SPI = E
+
+# Specify a pin for SPI SS (Slave Select). The notation is PORT,PIN. For
+# example, if you wanted to use PIN 4 on PORTE, you would set
+# the option as E,4.
+# Applicable if BOOTLOADER_INTERFACE = W5500_TCP_RAW.
+  SPI_SS_PIN = E,4
+
+# Specify a pin for the W5500 interrupt. The notation is PORT,PIN. For example,
+# if you wanted to use PIN 2 on PORTD, you would set the option as D,2.
+# Applicable if BOOTLOADER_INTERFACE == W5500_TCP_RAW.
+  W5500_INT_PIN = D,2
+
+# Specify location (memory type) and offset of ethernet MAC address -
+# flash, on-chip EEPROM or external EEPROM (24C02 compatible) via I2C (TWI).
+# For I2C, offset = ((7 bit I2C slave address) << 9) + (sub address);
+# for example: 0xA0FA for the Microchip 24AA02E48.
+# Applicable if BOOTLOADER_INTERFACE = W5500_TCP_RAW.
+# MAC_ADDRESS_LOCATION = FLASH
+# MAC_ADDRESS_LOCATION = EEPROM
+  MAC_ADDRESS_LOCATION = I2C
+  MAC_ADDRESS_OFFSET = 0xA0FA
+
+# Specify location (memory type) and offset of static IPv4 address info -
+# flash, on-chip EEPROM or external EEPROM (24C02 compatible) via I2C (TWI).
+# For I2C, offset = ((7 bit I2C slave address) << 9) + (sub address);
+# Applicable if BOOTLOADER_INTERFACE = W5500_TCP_RAW.
+# IP_INFO_LOCATION = FLASH
+# IP_INFO_LOCATION = EEPROM
+  IP_INFO_LOCATION = I2C
+  IP_INFO_OFFSET = 0xA000
+
+# Specify TCP port number to listen on.
+  TCP_PORT = 65000
+
+# Specify which TWI to use. For example, C for the PORTC TWI (TWIC).
+# Applicable if BOOTLOADER_INTERFACE = W5500_TCP_RAW and
+# MAC_ADDRESS_LOCATION = I2C.
+  TWI = TWIC
+
 # Choose a baud rate for the UART.
 #    If you need a baud rate that is not listed in this makefile, you must add
 #    new configuration statements in config.macros.h. Remember, Xmegas start-up
 #    with a 2MHz clock.
+# Applicable if BOOTLOADER_INTERFACE == UART.
 # BAUD_RATE = 9600
 # BAUD_RATE = 38400
 # BAUD_RATE = 57600
@@ -93,6 +140,7 @@ MCU = atxmega16d4
 
 # Specify which UART to use with PORT,NUM notation. For example, UART1 on
 # PORTD would be D,1.
+# Applicable if BOOTLOADER_INTERFACE == UART.
   UART = C,0
 
 ###############################################################################
@@ -333,7 +381,7 @@ CC = avr-gcc
 CPP = avr-g++
 
 ## Compile options common for all C compilation units.
-CFLAGS += -mmcu=$(MCU) -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DBOOT_PAGE_SIZE=$(BOOT_PAGE_SIZE) -DAPP_PAGE_SIZE=$(APP_PAGE_SIZE) -DMCU=$(MCU) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON) -DBOOTLOADER_PIN_EN=$(BOOTLOADER_PIN_ON)
+CFLAGS += -mmcu=$(MCU) -Wall -gdwarf-2 -std=gnu99 -DF_CPU=2000000UL -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -DBOOT_PAGE_SIZE=$(BOOT_PAGE_SIZE) -DAPP_PAGE_SIZE=$(APP_PAGE_SIZE) -DMCU=$(MCU) -DINTERFACE=$(INTERFACE) -DMY_SPI=$(SPI) -DSPI_SS_PIN=$(SPI_SS_PIN) -DW5500_INT_PIN=$(W5500_INT_PIN) -DMAC_ADDRESS_LOCATION=$(MAC_ADDRESS_LOCATION) -DMAC_ADDRESS_OFFSET=$(MAC_ADDRESS_OFFSET) -DIP_INFO_LOCATION=$(IP_INFO_LOCATION)-DIP_INFO_OFFSET=$(IP_INFO_OFFSET) -DTCP_PORT=$(TCP_PORT) -DMY_TWI=$(TWI) -DBAUD_RATE=$(BAUD_RATE) -DMY_UART=$(UART) -DENTER_BOOTLOADER_PIN=$(BOOTLOADER_PIN) -DLED_PIN=$(LED_PIN) -DLED_ON=$(LED_ON) -DBOOTLOADER_PIN_EN=$(BOOTLOADER_PIN_ON)
 CFLAGS += -MD -MP -MT $(*F).o
 
 ## Assembly specific flags
@@ -352,7 +400,7 @@ HEX_EEPROM_FLAGS += --set-section-flags=.eeprom="alloc,load"
 HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 ## Objects that must be built in order to link
-OBJECTS = eeprom_driver.o $(PROJECT).o serial.o sp_driver.o CCP_Write.o
+OBJECTS = i2c_master.o spi_master.o w5500.o eeprom_driver.o $(PROJECT).o serial.o sp_driver.o CCP_Write.o
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS =
@@ -361,6 +409,15 @@ LINKONLYOBJECTS =
 all: $(TARGET) $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss
 # Uncomment if you want sizebefore and size after to execute
 #all: sizebefore $(TARGET) $(PROJECT).hex $(PROJECT).eep sizeafter  $(PROJECT).lss
+i2c_master.o: i2c_master.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+spi_master.o: spi_master.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+w5500.o: w5500.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
 eeprom_driver.o: eeprom_driver.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 

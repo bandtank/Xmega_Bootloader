@@ -1,5 +1,7 @@
 #include "serial.h"
 
+#if INTERFACE==UART
+
 /*! \brief Initializing UART communcation.
  *
  *  This function initializes the UART communication with generic parameters as mentioned below.
@@ -45,3 +47,4 @@ unsigned char recchar(void)
 	return Uart(MY_UART).DATA;
 }
 
+#endif

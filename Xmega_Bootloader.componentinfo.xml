@@ -15,7 +15,7 @@
 			<Description></Description>
 			<Files xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 				<d4p1:anyType i:type="FileInfo">
-					<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAD_DFP\1.0.33\include</AbsolutePath>
+					<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAA_DFP\1.0.38\include</AbsolutePath>
 					<Attribute></Attribute>
 					<Category>include</Category>
 					<Condition>C</Condition>
@@ -26,18 +26,18 @@
 					<SourcePath></SourcePath>
 				</d4p1:anyType>
 				<d4p1:anyType i:type="FileInfo">
-					<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAD_DFP\1.0.33\include\avr\iox16d4.h</AbsolutePath>
+					<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAA_DFP\1.0.38\include\avr\iox128a3u.h</AbsolutePath>
 					<Attribute></Attribute>
 					<Category>header</Category>
 					<Condition>C</Condition>
-					<FileContentHash>wDz7wmVDq01ckoVVGR8mGA==</FileContentHash>
+					<FileContentHash>RV/+toPQmhse36RtBwkWXw==</FileContentHash>
 					<FileVersion></FileVersion>
-					<Name>include/avr/iox16d4.h</Name>
+					<Name>include/avr/iox128a3u.h</Name>
 					<SelectString></SelectString>
 					<SourcePath></SourcePath>
 				</d4p1:anyType>
 				<d4p1:anyType i:type="FileInfo">
-					<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAD_DFP\1.0.33\templates\main.c</AbsolutePath>
+					<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAA_DFP\1.0.38\templates\main.c</AbsolutePath>
 					<Attribute>template</Attribute>
 					<Category>source</Category>
 					<Condition>C Exe</Condition>
@@ -48,7 +48,7 @@
 					<SourcePath></SourcePath>
 				</d4p1:anyType>
 				<d4p1:anyType i:type="FileInfo">
-					<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAD_DFP\1.0.33\templates\main.cpp</AbsolutePath>
+					<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAA_DFP\1.0.38\templates\main.cpp</AbsolutePath>
 					<Attribute>template</Attribute>
 					<Category>source</Category>
 					<Condition>C Exe</Condition>
@@ -59,22 +59,22 @@
 					<SourcePath></SourcePath>
 				</d4p1:anyType>
 				<d4p1:anyType i:type="FileInfo">
-					<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAD_DFP\1.0.33\gcc\dev\atxmega16d4</AbsolutePath>
+					<AbsolutePath>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\XMEGAA_DFP\1.0.38\gcc\dev\atxmega128a3u</AbsolutePath>
 					<Attribute></Attribute>
 					<Category>libraryPrefix</Category>
 					<Condition>GCC</Condition>
 					<FileContentHash i:nil="true" />
 					<FileVersion></FileVersion>
-					<Name>gcc/dev/atxmega16d4</Name>
+					<Name>gcc/dev/atxmega128a3u</Name>
 					<SelectString></SelectString>
 					<SourcePath></SourcePath>
 				</d4p1:anyType>
 			</Files>
-			<PackName>XMEGAD_DFP</PackName>
-			<PackPath>C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/XMEGAD_DFP/1.0.33/Atmel.XMEGAD_DFP.pdsc</PackPath>
-			<PackVersion>1.0.33</PackVersion>
+			<PackName>XMEGAA_DFP</PackName>
+			<PackPath>C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/XMEGAA_DFP/1.0.38/Atmel.XMEGAA_DFP.pdsc</PackPath>
+			<PackVersion>1.0.38</PackVersion>
 			<PresentInProject>true</PresentInProject>
-			<ReferenceConditionId>ATxmega16D4</ReferenceConditionId>
+			<ReferenceConditionId>ATxmega128A3U</ReferenceConditionId>
 			<RteComponents xmlns:d4p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
 				<d4p1:string></d4p1:string>
 			</RteComponents>

@@ -1,0 +1,226 @@
+#ifndef W5500_H_
+#define W5500_H_
+
+//----------------------------------------------------------------------
+// register access definitions
+
+#define W5500_WRITE		1
+#define W5500_READ		0
+
+// blocks
+
+#define W5500_BLK_CREG		0b00000
+#define W5500_BLK_S0REG		0b00001
+#define W5500_BLK_S0TXBUF	0b00010
+#define W5500_BLK_S0RXBUF	0b00011
+#define W5500_BLK_S1REG		0b00101
+#define W5500_BLK_S1TXBUF	0b00110
+#define W5500_BLK_S1RXBUF	0b00111
+#define W5500_BLK_S2REG		0b01001
+#define W5500_BLK_S2TXBUF	0b01010
+#define W5500_BLK_S2RXBUF	0b01011
+#define W5500_BLK_S3REG		0b01101
+#define W5500_BLK_S3TXBUF	0b01110
+#define W5500_BLK_S3RXBUF	0b01111
+#define W5500_BLK_S4REG		0b10001
+#define W5500_BLK_S4TXBUF	0b10010
+#define W5500_BLK_S4RXBUF	0b10011
+#define W5500_BLK_S5REG		0b10101
+#define W5500_BLK_S5TXBUF	0b10110
+#define W5500_BLK_S5RXBUF	0b10111
+#define W5500_BLK_S6REG		0b11001
+#define W5500_BLK_S6TXBUF	0b11010
+#define W5500_BLK_S6RXBUF	0b11011
+#define W5500_BLK_S7REG		0b11101
+#define W5500_BLK_S7TXBUF	0b11110
+#define W5500_BLK_S7RXBUF	0b11111
+
+// common registers
+
+#define W5500_CR_MR			0x0000
+#define W5500_CR_GAR0		0x0001
+#define W5500_CR_GAR1		0x0002
+#define W5500_CR_GAR2		0x0003
+#define W5500_CR_GAR3		0x0004
+#define W5500_CR_SUBR0		0x0005
+#define W5500_CR_SUBR1		0x0006
+#define W5500_CR_SUBR2		0x0007
+#define W5500_CR_SUBR3		0x0008
+#define W5500_CR_SHAR0		0x0009
+#define W5500_CR_SHAR1		0x000A
+#define W5500_CR_SHAR2		0x000B
+#define W5500_CR_SHAR3		0x000C
+#define W5500_CR_SHAR4		0x000D
+#define W5500_CR_SHAR5		0x000E
+#define W5500_CR_SIPR0		0x000F
+#define W5500_CR_SIPR1		0x0010
+#define W5500_CR_SIPR2		0x0011
+#define W5500_CR_SIPR3		0x0012
+#define W5500_CR_INTLEVEL0	0x0013
+#define W5500_CR_INTLEVEL1	0x0014
+#define W5500_CR_IR			0x0015
+#define W5500_CR_IMR		0x0016
+#define W5500_CR_SIR		0x0017
+#define W5500_CR_SIMR		0x0018
+#define W5500_CR_RTR0		0x0019
+#define W5500_CR_RTR1		0x001A
+#define W5500_CR_RCR		0x001B
+#define W5500_CR_PTIMER		0x001C
+#define W5500_CR_PMAGIC		0x001D
+#define W5500_CR_PHAR0		0x001E
+#define W5500_CR_PHAR1		0x001F
+#define W5500_CR_PHAR2		0x0020
+#define W5500_CR_PHAR3		0x0021
+#define W5500_CR_PHAR4		0x0022
+#define W5500_CR_PHAR5		0x0023
+#define W5500_CR_PSID0		0x0024
+#define W5500_CR_PSID1		0x0025
+#define W5500_CR_PMRU0		0x0026
+#define W5500_CR_PMRU1		0x0027
+#define W5500_CR_UIPR0		0x0028
+#define W5500_CR_UIPR1		0x0029
+#define W5500_CR_UIPR2		0x002A
+#define W5500_CR_UIPR3		0x002B
+#define W5500_CR_UPORTR0	0x002C
+#define W5500_CR_UPORTR1	0x002D
+#define W5500_CR_PHYCFGR	0x002E
+#define W5500_CR_VERSIONR	0x0039
+
+// aliases for 16/32/48 bit access
+
+#define W5500_CR_GAR		0x0001
+#define W5500_CR_SUBR		0x0005
+#define W5500_CR_SHAR		0x0009
+#define W5500_CR_SIPR		0x000F
+#define W5500_CR_PHAR		0x001E
+#define W5500_CR_PSID		0x0024
+#define W5500_CR_PMRU		0x0026
+#define W5500_CR_UIPR		0x0028
+#define W5500_CR_UPORTR		0x002C
+
+// socket registers
+
+#define W5500_SR_MR			0x0000
+#define W5500_SR_CR			0x0001
+#define W5500_SR_IR			0x0002
+#define W5500_SR_SR			0x0003
+#define W5500_SR_PORT0		0x0004
+#define W5500_SR_PORT1		0x0005
+#define W5500_SR_DHAR0		0x0006
+#define W5500_SR_DHAR1		0x0007
+#define W5500_SR_DHAR2		0x0008
+#define W5500_SR_DHAR3		0x0009
+#define W5500_SR_DHAR4		0x000A
+#define W5500_SR_DHAR5		0x000B
+#define W5500_SR_DIPR0		0x000C
+#define W5500_SR_DIPR1		0x000D
+#define W5500_SR_DIPR2		0x000E
+#define W5500_SR_DIPR3		0x000F
+#define W5500_SR_DPORT0		0x0010
+#define W5500_SR_DPORT1		0x0011
+#define W5500_SR_MSSR0		0x0012
+#define W5500_SR_MSSR1		0x0013
+#define W5500_SR_TOS		0x0015
+#define W5500_SR_TTL		0x0016
+#define W5500_SRRXBUF_SIZE	0x001E
+#define W5500_SRTXBUF_SIZE	0x001F
+#define W5500_SR_TX_FSR0	0x0020
+#define W5500_SR_TX_FSR1	0x0021
+#define W5500_SR_TX_RD0		0x0022
+#define W5500_SR_TX_RD1		0x0023
+#define W5500_SR_TX_WR0		0x0024
+#define W5500_SR_TX_WR1		0x0025
+#define W5500_SR_RX_RSR0	0x0026
+#define W5500_SR_RX_RSR1	0x0027
+#define W5500_SR_RX_RD0		0x0028
+#define W5500_SR_RX_RD1		0x0029
+#define W5500_SR_RX_WR0		0x002A
+#define W5500_SR_RX_WR1		0x002B
+#define W5500_SR_IMR		0x002C
+#define W5500_SR_FRAG0		0x002D
+#define W5500_SR_FRAG1		0x002E
+#define W5500_SR_KPALVTR	0x002F
+
+// aliases for 16/32/48 bit access
+
+#define W5500_SR_PORT		0x0004
+#define W5500_SR_DHAR		0x0006
+#define W5500_SR_DIPR		0x000C
+#define W5500_SR_DPORT		0x0010
+#define W5500_SR_MSSR		0x0012
+#define W5500_SR_TX_FSR		0x0020
+#define W5500_SR_TX_RD		0x0022
+#define W5500_SR_TX_WR		0x0024
+#define W5500_SR_RX_RSR		0x0026
+#define W5500_SR_RX_RD		0x0028
+#define W5500_SR_RX_WR		0x002A
+#define W5500_SR_FRAG		0x002D
+
+// common register bits
+
+#define	W5500_CR_MR_RST				0x80
+#define W5500_CR_PHYCFGR_NRST		0x80
+#define W5500_CR_PHYCFGR_OPMD		0x40
+#define W5500_CR_PHYCFGR_OPMDC0		0x00
+#define W5500_CR_PHYCFGR_OPMDC1		0x08
+#define W5500_CR_PHYCFGR_OPMDC2		0x10
+#define W5500_CR_PHYCFGR_OPMDC3		0x18
+#define W5500_CR_PHYCFGR_OPMDC4		0x20
+#define W5500_CR_PHYCFGR_OPMDC5		0x28
+#define W5500_CR_PHYCFGR_OPMDC6		0x30
+#define W5500_CR_PHYCFGR_OPMDC7		0x38
+#define W5500_CR_PHYCFGR_DPX		0x04
+#define W5500_CR_PHYCFGR_SPD		0x02
+#define W5500_CR_PHYCFGR_LNK		0x01
+#define W5500_CR_SIMR_S0			0x01
+#define W5500_CR_SIMR_S1			0x02
+#define W5500_CR_SIMR_S2			0x04
+#define W5500_CR_SIMR_S3			0x08
+#define W5500_CR_SIMR_S4			0x10
+#define W5500_CR_SIMR_S5			0x20
+#define W5500_CR_SIMR_S6			0x40
+#define W5500_CR_SIMR_S7			0x80
+#define W5500_SR_IR_CON				0x01
+#define W5500_SR_IR_DISCON			0x02
+#define W5500_SR_IR_RECV			0x04
+#define W5500_SR_IR_TIMEOUT			0x08
+#define W5500_SR_IR_SEND_OK			0x10
+
+// socket register bits
+
+#define W5500_SR_MR_PROTO_CLOSED	0x00
+#define W5500_SR_MR_PROTO_TCP		0x01
+#define W5500_SR_MR_PROTO_UDP		0x02
+#define W5500_SR_MR_PROTO_IPRAW		0x03
+#define W5500_SR_MR_PROTO_MACRAW	0x04
+#define W5500_SR_CR_OPEN			0x01
+#define W5500_SR_CR_LISTEN			0x02
+#define W5500_SR_CR_CONNECT			0x04
+#define W5500_SR_CR_DISCON			0x08
+#define W5500_SR_CR_CLOSE			0x10
+#define W5500_SR_CR_SEND			0x20
+#define W5500_SR_CR_SEND_MAC		0x21
+#define W5500_SR_CR_SEND_KEEP		0x22
+#define W5500_SR_CR_RECV			0x40
+#define W5500_SR_SR_CLOSED			0x00
+#define W5500_SR_SR_INIT			0x13
+#define W5500_SR_SR_LISTEN			0x14
+#define W5500_SR_SR_ESTABLISHED		0x17
+#define W5500_SR_SR_CLOSE_WAIT		0x1C
+#define W5500_SR_SR_UDP				0x22
+#define W5500_SR_SR_MACRAW			0x42
+#define W5500_SR_SR_SYNSENT			0x15
+#define W5500_SR_SR_SYNRECV			0x16
+#define W5500_SR_SR_FIN_WAIT		0x18
+#define W5500_SR_SR_CLOSING			0x1A
+#define W5500_SR_SR_TIME_WAIT		0x1B
+#define W5500_SR_SR_LAST_ACK		0x1D
+
+//----------------------------------------------------------------------
+// functions
+
+uint8_t w5500_init(void);
+
+//----------------------------------------------------------------------
+
+#endif

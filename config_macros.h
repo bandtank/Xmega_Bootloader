@@ -9,6 +9,9 @@
 #define xCAT3(a,b,c) a##b##c
 #define CAT3(a,b,c) xCAT3(a,b,c)
 
+#define xCAT5(a,b,c,d,e) a##b##c#d#e
+#define CAT5(a,b,c,d,e) xCAT3(a,b,c,d,e)
+
 
 #define CAT_PORT(a,b,c) xCAT2(a,b)
 #define Port(a) CAT_PORT(PORT,a)
@@ -19,6 +22,12 @@
 #define xISOLATE_PIN_NUMBER(a, b) b
 #define ISOLATE_PIN_NUMBER(a, b) xISOLATE_PIN_NUMBER(a,b)
 #define Pin(a)  ISOLATE_PIN_NUMBER(a)
+
+#define Port_Dir_Set(a) CAT_PORT(PORT, a).DIRSET=(1<<ISOLATE_PIN_NUMBER(a))
+#define Port_Out_Set(a) CAT_PORT(PORT, a).OUTSET=(1<<ISOLATE_PIN_NUMBER(a))
+#define Port_Out_Clr(a) CAT_PORT(PORT, a).OUTCLR=(1<<ISOLATE_PIN_NUMBER(a))
+
+#define Port_In (CAT_PORT(PORT, a).IN & (1<<ISOLATE_PIN_NUMBER(a)))
 
 #define Shift_TX_PIN(a) (1 << (a*4 +3))
 #define TX_Pin(my_uart)  Shift_TX_PIN(ISOLATE_PIN_NUMBER(my_uart))
