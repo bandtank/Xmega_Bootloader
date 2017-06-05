@@ -61,7 +61,7 @@
 // SPM control
 #define APP_END                   (APP_SECTION_START + APP_SECTION_SIZE)
 
-#if(APP_SECTION_SIZE > 0x10000)
+#if(APP_SECTION_SIZE >= 0x10000)
    #define LARGE_MEMORY
 #endif
 
