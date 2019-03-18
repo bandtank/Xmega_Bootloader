@@ -66,7 +66,7 @@
 ;* THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ;******************************************************************************
 
-#include <avr\io.h>
+#include <avr/io.h>
 
 /* Defines not yet included in header file. */
 #define NVM_CMD_NO_OPERATION_gc (0x00<<0)	// Noop/Ordinary LPM
