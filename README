@@ -6,6 +6,13 @@ Please see these threads for helpful tips and information:
    1. http://www.avrfreaks.net/forum/tutsoft-xmega-bootloader-available
    2. http://www.avrfreaks.net/forum/xmega-serial-bootloader
 
+!!!!!!!!!!
+NOTE - the xmega E series does not work properly with the master branch of this
+repository. Use the xmegaE branch, which has a temporary workaround. I will
+update the main repository to handle xmega E series microcontrollers at some
+point.
+!!!!!!!!!!
+
 Bootloader information:
    1. It works with all Xmegas, but may require you to add support if it isn't
       already in the makefile. Note: AVR-GCC has to support the particular
