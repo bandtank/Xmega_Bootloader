@@ -75,7 +75,7 @@ void EEPROM_WriteByte( uint8_t pageAddr, uint8_t byteAddr, uint8_t value )
 	 *  the "Page Load" command into the command register.
 	 */
 	EEPROM_FlushBuffer();
-	NVM.CMD = NVM_CMD_LOAD_EEPROM_BUFFER_gc;
+	//NVM.CMD = NVM_CMD_LOAD_EEPROM_BUFFER_gc;
 
 	/* Calculate address */
 	uint16_t address = (uint16_t)(pageAddr*EEPROM_PAGESIZE)
@@ -122,7 +122,7 @@ uint8_t EEPROM_ReadByte( uint8_t pageAddr, uint8_t byteAddr )
 	NVM.ADDR2 = 0x00;
 
 	/* Issue EEPROM Read command. */
-	NVM.CMD = NVM_CMD_READ_EEPROM_gc;
+	//NVM.CMD = NVM_CMD_READ_EEPROM_gc;
 	NVM_EXEC();
 
 	return NVM.DATA0;
@@ -184,7 +184,7 @@ void EEPROM_LoadByte( uint8_t byteAddr, uint8_t value )
 {
 	/* Wait until NVM is not busy and prepare NVM command.*/
 	EEPROM_WaitForNVM();
-	NVM.CMD = NVM_CMD_LOAD_EEPROM_BUFFER_gc;
+	//NVM.CMD = NVM_CMD_LOAD_EEPROM_BUFFER_gc;
 
 	/* Set address. */
 	NVM.ADDR0 = byteAddr & 0xFF;
@@ -214,7 +214,7 @@ void EEPROM_LoadPage( const uint8_t * values )
 {
 	/* Wait until NVM is not busy. */
 	EEPROM_WaitForNVM();
-	NVM.CMD = NVM_CMD_LOAD_EEPROM_BUFFER_gc;
+	//NVM.CMD = NVM_CMD_LOAD_EEPROM_BUFFER_gc;
 
 	/*  Set address to zero, as only the lower bits matters. ADDR0 is
 	 *  maintained inside the loop below.

@@ -103,14 +103,14 @@
  *  \note This disables IO-mapped access to EEPROM, although page erase and
  *        write operations still needs to be done through IO register.
  */
-#define EEPROM_EnableMapping() ( NVM.CTRLB |= NVM_EEMAPEN_bm )
+#define EEPROM_EnableMapping()  0 //( NVM.CTRLB |= NVM_EEMAPEN_bm )
 
 /*! \brief Disable EEPROM mapping into data space.
  *
  *  This macro disables mapping of EEPROM into data space.
  *  IO mapped access is now enabled.
  */
-#define EEPROM_DisableMapping() ( NVM.CTRLB &= ~NVM_EEMAPEN_bm )
+#define EEPROM_DisableMapping() 0 //( NVM.CTRLB &= ~NVM_EEMAPEN_bm )
 
 /*! \brief Non-Volatile Memory Execute Command
  *
