@@ -358,7 +358,8 @@ OBJECTS = eeprom_driver.o $(PROJECT).o serial.o sp_driver.o CCP_Write.o
 LINKONLYOBJECTS =
 
 ## Build
-all: $(TARGET) $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss
+#all: $(TARGET) $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss
+all: $(TARGET) $(PROJECT).hex
 # Uncomment if you want sizebefore and size after to execute
 #all: sizebefore $(TARGET) $(PROJECT).hex $(PROJECT).eep sizeafter  $(PROJECT).lss
 eeprom_driver.o: eeprom_driver.c
